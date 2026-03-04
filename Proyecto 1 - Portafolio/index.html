@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<!--
+  Proyecto: Portafolio Personal Responsivo (Single Page)
+  Idea clave para defensa:
+  - Es una sola página con secciones identificadas por id.
+  - El menú navega con anclas (#hero, #about...) sin JavaScript.
+-->
+<html lang="es">
+<head>
+  <!--
+    meta charset: asegura que se muestren bien acentos/ñ.
+    viewport: hace que el diseño responda a tamaños móviles (mobile-first).
+  -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- title: aparece en la pestaña del navegador y ayuda en SEO básico -->
+  <title>Portafolio | Joe</title>
+
+  <!-- CSS externo: separa estructura (HTML) de presentación (CSS) -->
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+  <!--
+    HEADER: cabecera semántica del sitio.
+    Por qué se usa:
+    - Identifica la parte superior / “branding”.
+    - Aquí se suele ubicar la navegación principal.
+  -->
+  <header class="header">
+
+    <!--
+      NAV: navegación semántica.
+      Por qué se usa:
+      - Le indica al navegador y lectores de pantalla que esto es un bloque de navegación.
+      - Mejora accesibilidad y estructura del documento.
+    -->
+    <nav class="nav">
+
+      <!--
+        Logo textual.
+        Nota defensa:
+        - Podría ser un <a> al inicio (#hero) para mejorar UX.
+        - Mantenerlo simple cumple el requisito sin complicar.
+      -->
+      <div class="logo">&lt;Joe&gt;</div>
+
+      <!-- ✏️ CAMBIO: Menú hamburguesa CSS-only (sin JavaScript).
+        Se usa un <input type="checkbox"> oculto junto con un <label> como ícono.
+        Al hacer click en el label, se marca el checkbox. En CSS, el selector
+        :checked ~ .nav-links muestra/oculta el menú en móvil.
+        En desktop, tanto el checkbox como el label están ocultos y no afectan nada. -->
+      <input type="checkbox" id="menu-toggle" class="menu-toggle">
+      <label for="menu-toggle" class="menu-icon">
+        <span class="hamburger"></span>
+      </label>
+
+      <!--
+        Lista de navegación:
+        - Se usa <ul><li> porque es un conjunto de links (lista).
+        - Cada <a href="#..."> conecta con un id de una sección (navegación interna).
+      -->
+      <ul class="nav-links">
+        <li><a href="#hero">Inicio</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#projects">Proyectos</a></li>
+        <li><a href="#contact">Contacto</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!--
+    MAIN: contenido principal del documento.
+    Por qué se usa:
+    - Accesibilidad: ayuda a lectores de pantalla a saltar al contenido principal.
+    - Semántica: separa navegación/footers del contenido central.
+  -->
+  <main>
+
+    <!--
+      HERO: primera sección visible, “presentación”.
+      Se marca como <section> porque es un bloque temático del sitio.
+      Nota: Tiene id="hero" para que el nav haga scroll a esta sección.
+    -->
+
+
+    <!-- Utilicé una clase reutilizable llamada .section para aplicar padding consistente a todas las secciones del sitio
+    Esto evita duplicar reglas CSS y facilita mantenimiento si el espaciado cambia -->
+
+    <section id="hero" class="hero section">
+      <div class="hero-container">
+        <!--
+          Contenedor general para layout.
+          Defensa:
+          - Aquí se aplicará Flexbox para lograr 2 columnas (imagen izquierda / texto derecha).
+          - En móvil, normalmente se vuelve una columna (responsive).
+        -->
+
+        <!-- ✏️ CAMBIO: <div> cambiado a <figure> con <figcaption> — cumple el requisito
+          de usar etiquetas semánticas <figure> y <figcaption> para imágenes con descripción.
+          <figure> agrupa contenido visual independiente y <figcaption> le da una leyenda. -->
+        <figure class="hero-image">
+          <!--
+            img con alt:
+            - alt es obligatorio para accesibilidad.
+            - describe el contenido de la imagen (no "imagen1", sino "Foto de Joe").
+          -->
+          <img src="images/profile.jpg" alt="Foto de Joe">
+          <figcaption>Johel Gómez — Desarrollador en formación</figcaption>
+        </figure>
+
+        <div class="hero-content">
+          <!--
+            Jerarquía de títulos:
+            - h1 se usa solo una vez en la página (título principal).
+            - h2/h3 se usan para secciones y subtítulos.
+          -->
+          <h1>Johel Gómez</h1>
+          <h2>Estudiante de Desarrollo de Software
+          </h2>
+
+          <p>Enfocado en construir proyectos y resolver problemas con código</p>
+
+          <!--
+            Botón/CTA:
+            - Es un <a> (enlace) porque navega a otra sección (#contact).
+            - No es <button> porque no ejecuta acción ni envía formulario.
+          -->
+          <a href="#contact" class="btn">Contáctame</a>
+        </div>
+
+      </div>
+    </section>
+
+
+    <!--
+      ABOUT: sección de información personal.
+      - <section> porque agrupa contenido relacionado (tema: “Sobre mí”).
+      - El id conecta con el nav.
+    -->
+
+    <!-- <section> es la etiqueta, "about section" son las clases asignadas para que CSS acceda y aplique estilos-->
+    <section id="about" class="about section">
+      <h2>Sobre mi</h2>
+      <h3>Quien soy?</h3>
+
+      <!--
+        div contenedor:
+        - Se usa para agrupar y poder estilizar (márgenes/anchos) en CSS.
+        - Mantener HTML semántico: el texto importante sigue en <p>.
+      -->
+      <div class="about-description">
+        <p>
+          Soy Johel Gómez, estudiante de desarrollo de software 💻 enfocado en aprender, construir y mejorar constantemente.
+
+          Actualmente estoy desarrollando proyectos para fortalecer mis habilidades en programación, lógica y desarrollo web. Me interesa entender cómo funcionan las cosas, resolver problemas y crear soluciones claras y funcionales a través del código.
+
+          Fuera del mundo de la programación, disfruto el deporte 🏋️‍♂️, el crecimiento personal 📈 y los retos que implican disciplina y constancia. También me gusta pasar tiempo en la naturaleza 🌿, explorar nuevas ideas y escuchar música electrónica 🎧.
+
+          Este portafolio reúne algunos de los proyectos y aprendizajes que forman parte de mi proceso como desarrollador.
+        </p>
+      </div>
+    </section>
+
+
+    <!--
+      SKILLS: habilidades.
+      - Es una <section> porque agrupa un conjunto de habilidades del perfil.
+      - skills-container se presta para Flexbox con wrap (tarjetas/badges).
+    -->
+    <section id="skills" class="skills section">
+      <h2>Skills</h2>
+
+      <div class="skills-container">
+        <!--
+          Tarjetas de skills.
+          Defensa:
+          - Estas “cards” luego se distribuyen con Flexbox (gap, wrap, etc.)
+          - Se puede demostrar hover/transform/transition aquí.
+        -->
+        <div class="skill-card">
+          <img src="images/html.png" alt="HTML">
+          <span>HTML</span>
+        </div>
+        
+        <div class="skill-card">
+          <img src="images/css.png" alt="CSS">
+          <span>CSS</span>
+        </div>
+        
+        <div class="skill-card">
+          <img src="images/js.png" alt="JavaScript">
+          <span>JavaScript</span>
+        </div>
+        
+        <div class="skill-card">
+          <img src="images/git.png" alt="Git">
+          <span>Git</span>
+        </div>
+        
+        <div class="skill-card">
+          <img src="images/python.png" alt="Python">
+          <span>Python</span>
+        </div>
+        
+        <div class="skill-card">
+          <img src="images/sql.png" alt="MySQL">
+          <span>MySQL</span>
+        </div>
+
+      </div>
+    </section>
+
+
+    <!--
+      PROJECTS: sección de proyectos.
+      - <section> agrupa todos los proyectos.
+      - Cada proyecto individual es un <article> porque es contenido independiente:
+        “si lo saco de la página, sigue teniendo sentido por sí solo”.
+    -->
+    <section id="projects" class="projects section">
+      <h2>Proyectos</h2>
+
+      <!--
+        Contenedor para layout.
+        Defensa:
+        - Aquí se aplica Flexbox + flex-wrap para tarjetas responsivas.
+      -->
+      <div class="projects-container">
+
+        <a class="project-link" href="https://github.com/xJDevs/Learning-Path-/blob/main/100%20Days%20of%20Code/Lesson%2015/coffee_machine.py" target="_blank" rel="noopener">
+          <article class="project-card">
+            <img src="images/coffee.png" alt="Coffee Machine project">
+            <div class="project-body">
+              <h3>Coffee Machine</h3>
+              <p>Simulación de una máquina de café en Python con menú, recursos y manejo de dinero.</p>
+            </div>
+            <!-- ✏️ CAMBIO: tag movido fuera de project-body para que la barra de color ocupe todo el ancho -->
+            <span class="project-tag">Python</span>
+          </article>
+        </a>
+      
+        <a class="project-link" href="https://github.com/xJDevs/Learning-Path-/blob/main/100%20Days%20of%20Code/Lesson%2011/balckjack.py" target="_blank" rel="noopener">
+          <article class="project-card">
+            <img src="images/black.png" alt="Black Jack Game project">
+            <div class="project-body">
+              <h3>Black Jack Game</h3>
+              <p>Juego de BlackJack en consola: cartas, puntajes y lógica de la computadora.</p>
+            </div>
+            <!-- ✏️ CAMBIO: tag movido fuera de project-body -->
+            <span class="project-tag">Python</span>
+          </article>
+        </a>
+      
+        <a class="project-link" href="https://github.com/xJDevs/Learning-Path-/blob/main/100%20Days%20of%20Code/Lesson%2014/higher_lower.py" target="_blank" rel="noopener">
+          <article class="project-card">
+            <img src="images/highorlow.png" alt="Higher or Lower Game project">
+            <div class="project-body">
+              <h3>Higher or Lower Game</h3>
+              <p>Juego de adivinar quién tiene más seguidores con rondas y score.</p>
+            </div>
+            <!-- ✏️ CAMBIO: tag movido fuera de project-body -->
+            <span class="project-tag">Python</span>
+          </article>
+        </a>
+
+      </div>
+    </section>
+
+    <!-- ✏️ CAMBIO: Sección de contacto ahora incluye un formulario funcional (sin JavaScript).
+       Defensa:
+       - <form> es la etiqueta semántica para formularios HTML.
+       - action="mailto:..." abre el cliente de correo del usuario al enviar.
+       - method="POST" y enctype="text/plain" envían los datos como texto plano al correo.
+       - Cada <input> y <textarea> tiene un <label> asociado vía el atributo "for" para accesibilidad.
+       - El atributo "required" valida campos obligatorios sin JavaScript (validación nativa del browser).
+    -->
+    <section id="contact" class="contact section">
+      <h2>Contacto</h2>
+      <p>Podés escribirme por aquí:</p>
+
+      <!-- ✏️ CAMBIO: Formulario de contacto con mailto — no requiere backend ni JavaScript.
+           Al hacer submit, abre el cliente de correo con los datos del formulario -->
+      <form class="contact-form" action="mailto:johel.agr.20629@gmail.com" method="POST" enctype="text/plain">
+
+        <!-- Grupo de campo: label + input para el nombre.
+             "for" conecta el label con el input vía su "id" — al hacer click en el label, se enfoca el input -->
+        <div class="form-group">
+          <label for="name">Nombre</label>
+          <input type="text" id="name" name="name" placeholder="Tu nombre" required>
+        </div>
+
+        <!-- Campo de email con type="email" — el browser valida automáticamente que sea un correo válido -->
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" placeholder="tu@email.com" required>
+        </div>
+
+        <!-- <textarea> permite texto multilínea, ideal para mensajes largos.
+             rows define la altura inicial visible del campo -->
+        <div class="form-group">
+          <label for="message">Mensaje</label>
+          <textarea id="message" name="message" rows="5" placeholder="Escribí tu mensaje..." required></textarea>
+        </div>
+
+        <!-- <button type="submit"> envía el formulario. Se usa button en vez de <a> porque ejecuta una acción -->
+        <button type="submit" class="btn">Enviar mensaje</button>
+      </form>
+
+    </section>
+
+  </main>
+  
+  <!-- ✏️ CAMBIO: <footer> movido fuera de <main> — semánticamente, el footer no es parte del contenido principal -->
+
+  <!--
+    FOOTER: pie de página semántico.
+    Defensa:
+    - Contiene enlaces secundarios / redes / navegación rápida.
+    - Usualmente se diseña en columnas con Flexbox.
+  -->
+  <footer class="footer">
+    <div class="footer-container">
+
+      <div class="social-media">
+        <h3>Social Media</h3>
+        <ul>
+          <li><a href="https://www.linkedin.com/feed/" target="_blank" rel="noopener">LinkedIn</a></li>
+          <li><a href="https://github.com/xJDevs" target="_blank" rel="noopener">GitHub</a></li>
+          <li><a href="https://www.instagram.com/" target="_blank" rel="noopener">Instagram</a></li>
+        </ul>
+      </div>
+
+      <div class="page-links">
+        <h3>Page Links</h3>
+        <ul>
+          <li><a href="#hero">Inicio</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#projects">Proyectos</a></li>
+        </ul>
+      </div>
+
+    </div>
+
+    <!--
+      Copyright separado:
+      Defensa:
+      - Bloque final para cerrar el sitio.
+      - Es común que tenga borde superior o fondo diferente en CSS.
+    -->
+    <div class="copyright">
+      <p>© 2026 Joe. Todos los derechos reservados.</p>
+    </div>
+
+  </footer>
+
+</body>
+</html>

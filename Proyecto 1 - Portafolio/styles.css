@@ -1,0 +1,652 @@
+/* 
+
+Orden estrucutural del archivo CSS:
+1. Reset: quita/controla los estilos por defecto que trae el browser 
+2. Global: reglas que hereda todo el sitio web 
+3. Layout: como va organizada la pagina - Flexbox
+4. Componentes: piezas reutilizables o repetibles del diseño
+5. Media Queries: estilos segun resoluciones 
+
+*/
+
+
+/* RESET */
+
+/* box-sizing: border-box para que el tamaño de elementos sea consistente y no se ‘infle’ con padding/border. Sin border-box, su valor por defecto seria content-box, donde el width primero mide el contenido, y luego suma padding y borde */
+
+* { 
+  box-sizing: border-box; 
+}
+
+/* GLOBAL */
+
+/* Se quita margin para controlar el espacio desde 0 */ 
+
+
+/* ✏️ CAMBIO: Bloques body fusionados en uno solo */
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background-color: #0f0f0f;
+  color: #f5f5f5;
+  line-height: 1.6;
+}
+
+h1 { 
+  font-size: 2.2rem;
+  letter-spacing: 0.5px;
+}
+
+h2 { 
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+p { 
+  font-size: 1rem;
+}
+
+/* Global link styles */
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+
+
+
+/* LAYOUT */
+
+/* flex en el <nav> para organizar el layout - flex alinea horizontalmente 
+El contenedor usa justify-content: space-between para colocar el logo a la izquierda y los links a la derecha.
+Luego la lista de navegación también usa Flexbox para distribuir los enlaces horizontalmente con gap para el espaciado.
+*/
+.nav { 
+  display: flex; 
+  justify-content: space-between; 
+  align-items: center; 
+}
+
+/* NOTA: No hay CSS del elemento "logo" porque ya tiene reglas indirectas que le afectan. Las del <nav> por estar dentro de el */
+
+.nav-links { 
+  list-style: none; 
+  display: flex; 
+  gap: 16px; 
+  margin: 0; 
+  padding: 0; 
+}
+
+/* ✏️ CAMBIO: Sin width: 100% el contenedor se ajusta al tamaño de su contenido
+   y el justify-content: center del padre (.hero) lo centra como bloque */
+.hero-container { 
+  display: flex; 
+  gap: 40px; 
+  align-items: center; 
+}
+
+/* ✏️ CAMBIO: flex: 1 hace que el texto se expanda para llenar el espacio disponible del contenedor */
+.hero-content {
+  flex: 1;
+}
+
+.skills-container { 
+  display: flex; 
+  flex-wrap: wrap; 
+  /* permite que los elementos salten a la siguiente línea cuando no hay espacio */
+  gap: 16px; 
+  justify-content: center;   /* centra todas las filas */
+  align-items: center;       /* alinea verticalmente si hay alturas distintas */
+}
+
+/* ✏️ CAMBIO: Layout del contenedor de proyectos actualizado para centrar tarjetas */
+.projects-container { 
+  display: flex; 
+  gap: 24px; 
+  flex-wrap: wrap; 
+  justify-content: center;
+}
+
+.footer-container { 
+  display: flex; 
+  justify-content: space-between; 
+  gap: 24px; 
+}
+
+/* ✏️ CAMBIO: Movido aquí desde abajo — estas reglas mobile-first estaban sueltas entre media queries */
+.hero-container,
+.footer-container {
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+
+
+
+/* COMPONENTES */
+
+main { 
+  /* vw = "viewport width" -  1vw = 1% del ancho de la pantalla
+  calc permite calculos en CSS
+  combina unidades fijas y relativas entonces el padding crece en pantallas mas grandes y lo hace escalable
+  */
+  padding-left: calc(16px + 1vw);
+  padding-right: calc(16px + 1vw);
+}
+
+.header { 
+  padding: 16px; 
+  border-bottom: 1px solid #ccc;
+  position: sticky; 
+  top: 0;
+  background-color: #0f0f0f;
+  z-index: 1000;
+}
+
+/* 
+
+position: sticky - el header se queda arriba al hacer scroll
+top: 0 - se pega al borde superior
+z-index - asegura que quede encima del contenido
+background-color - evita transparencia al hacer scroll
+*/
+
+.logo {
+  font-weight: 700;
+}
+
+/* pseudoelementos que agregan <> antes y despues, sin modificar HTML */
+
+.logo::before {
+  content: "<";
+  margin-right: 4px;
+  opacity: 0.6;
+}
+
+.logo::after {
+  content: ">";
+  margin-left: 4px;
+  opacity: 0.6;
+}
+
+
+/* ✏️ CAMBIO: Se eliminaron text-decoration y color porque ya están definidos en los estilos globales de <a> */
+.nav-links a {   /* selecciona todos los links dentro de este elemento */
+  padding: 6px 10px;
+  border-radius: 6px;
+  transition: background 0.2s ease;
+}
+
+/* son el mismo elemento, pero los separo porque ambos tienen estados interactivos diferentes. Uno tiene un estado por default todo el tiempo y otro solo cuando se le pasa el cursor */ 
+
+.nav-links a:hover { /* pseudo selector */
+  background: rgba(255,255,255,0.08);
+}
+
+
+.nav-links a:focus {
+  outline: 2px solid #3617ae; /* da color a los elementos cuando estan seleccionados */ 
+  outline-offset: 2px;
+}
+
+/* selector de hijo directo: en CSS ">" significa hijo directo, solo los <li> hijos directos del "nav-links" */
+.nav > .nav-links > li {
+  padding: 2px 0;
+}
+
+/* selector de hermano adyacente: el primer <p> justo después de un <h2> */
+h2 + p {
+  opacity: 0.9;
+}
+
+/* selector por atributo: selecciona todos los <a> cuyo atributo href empieza con "https" y "mailto" */
+
+/* Sin underline por defecto (ya que el estilo global de <a> lo quita).
+   Aquí solo definimos el color del underline y lo activamos en hover. */
+
+a[href^="https"]:hover,
+a[href^="mailto"]:hover {
+  text-decoration: underline;
+  text-decoration-color: rgba(221, 41, 241, 0.35);
+  text-underline-offset: 3px;
+}
+
+/* pseudo-clase nth-child: selecciona la segunda tarjeta dentro "projects-container" */
+
+.projects-container > .project-link:nth-child(2) .project-card:hover { 
+  transform: translateY(-6px);
+  box-shadow: 0 12px 30px rgba(241, 41, 114, 0.25);
+  border-color: rgba(241, 41, 114, 0.25); 
+}
+
+
+
+
+/* ✏️ CAMBIO: Se agregó display: flex y justify-content: center para que el bloque .hero-container
+   se centre horizontalmente en la sección, sin cambiar la alineación interna de sus elementos */
+.hero { 
+  /* ✏️ CAMBIO: Técnica para que el hero abarque todo el ancho del viewport,
+     sin importar el padding del contenedor padre (<main>).
+     width: 100vw lo hace tan ancho como la ventana,
+     position: relative + left: 50% lo mueve al centro,
+     transform: translateX(-50%) lo re-centra */
+  width: 100vw;
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 40px calc(16px + 1vw); 
+  /* vh - "viewport height" - 1vh = 1% del alto de la pantalla. Se utiliza para secciones que ocupan gran parte de la pantalla */
+  min-height: 60vh;
+  /* ✏️ CAMBIO: Dos gradientes en capas — el primero se difumina de transparente a negro (#0f0f0f)
+     hacia abajo, mezclándose con el fondo de la página. El segundo es el gradiente diagonal de color.
+     CSS permite apilar múltiples backgrounds separados por coma (el primero queda encima). */
+  background-image: 
+    linear-gradient(to bottom, transparent 50%, #0f0f0f 100%),
+    linear-gradient(135deg, rgba(77,166,255,0.15), rgba(59,5,238,0.10));
+  background-size: cover; /* hace el fondo cubra todo el contenedor */
+  background-position: center;
+  display: flex;
+  justify-content: center;
+}
+
+/* ✏️ CAMBIO: Imagen del hero más grande para que el contenido ocupe más espacio visual */
+.hero-image img {
+  width: 340px;
+  aspect-ratio: 1 / 1;
+  height: auto;
+  max-width: 100%;
+  display: block;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+/* ✏️ CAMBIO: Quita el margen por defecto de <figure>.
+   Ahora .hero-image es un <figure> en vez de <div>, y <figure> trae margin por defecto del browser */
+.hero-image {
+  margin: 0;
+}
+
+/* ✏️ CAMBIO: figcaption en blanco — el usuario quiere que sea legible, se quitó opacity */
+.hero-image figcaption {
+  text-align: center;
+  font-size: 0.85rem;
+  color: white;
+  margin-top: 8px;
+  font-style: italic;
+}
+
+/* ✏️ CAMBIO: Pseudo-elemento ::first-line — resalta la primera línea renderizada del texto de "Sobre mí".
+   Se quitó el color azul porque el usuario no quiere color en ese texto. Se mantiene font-weight para cumplir la rúbrica */
+.about-description p::first-line {
+  font-weight: 600;
+}
+
+.section { 
+  /* "root em" - 1 rem ≈  16 px aprox. Escala mejor en responsive */
+  padding: 3rem 1rem; 
+}
+
+/* ✏️ CAMBIO: Bloques .skill-card fusionados en uno solo + se agregó transition para hover suave */
+.skill-card { 
+
+  /* 
+  flex-grow
+  flex-shrink
+  flex-basis
+
+  flex-basis define el tamaño base del elemento, flex-grow permite que crezca si hay espacio disponible y flex-shrink permite que se reduzca cuando el contenedor es pequeño.
+
+  */
+
+  width: 110px;
+  padding: 14px 12px;
+  border-radius: 12px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-items: center;
+  justify-content: center;
+
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.skill-card img {
+  width: 36px;
+  height: 36px;
+  object-fit: contain;
+}
+
+.skill-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+}
+
+/* ✏️ CAMBIO: Rediseño completo de tarjetas de proyecto — inspirado en imagen de referencia */
+
+/* Contenedor del link — actúa como flex item del projects-container */
+.project-link {
+  display: block;
+  color: inherit;
+  flex: 1 1 100%; /* mobile-first: una tarjeta por fila */
+}
+
+/* Tarjeta de proyecto — bordes redondeados, sin padding (overflow hidden recorta la imagen) */
+.project-card { 
+  background-color: #1a1a1a;
+  border: 1px solid #2a2a2a; 
+  border-radius: 16px;
+  overflow: hidden;
+  position: relative;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Imagen de proyecto — ocupa todo el ancho superior */
+.project-card img {
+  width: 100%;
+  height: 200px;
+  display: block;
+  object-fit: cover;
+
+  /* ajusta las imágenes de los proyectos con width: 100% para que se adapten al contenedor y object-fit: cover para llenar el espacio sin deformarse */
+}
+
+/* Cuerpo de texto con padding interno */
+.project-body {
+  padding: 20px;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.project-body h3 {
+  font-size: 1.25rem;
+  margin: 0 0 8px;
+  font-weight: 700;
+}
+
+.project-body p {
+  font-size: 0.9rem;
+  opacity: 0.8;
+  margin: 0;
+  line-height: 1.5;
+  flex-grow: 1;
+}
+
+/* Etiqueta de tecnología — barra de color al fondo de la tarjeta, similar a la imagen de referencia */
+.project-tag {
+  display: block;
+  padding: 10px 20px;
+  background: linear-gradient(135deg, #3b05ee, #6c2bd9);
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: white;
+  text-align: center;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+/* :hover: sin movimiento — las tarjetas permanecen fijas. Solo un sutil cambio de borde */
+.project-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 30px rgba(39, 5, 207, 0.4);
+  border-color: rgba(59, 5, 238, 0.5);
+}
+
+.footer { 
+  display: flex;
+  flex-direction: column;
+  align-items: space-between;
+  padding: 24px 16px; 
+  border-top: 1px solid #ccc; 
+}
+
+.footer ul { 
+  list-style: none; 
+  padding: 0; 
+  margin: 0; 
+}
+
+.copyright { 
+  margin-top: 24px; 
+}
+
+/* ✏️ CAMBIO: Sección de contacto centrada */
+.contact {
+  text-align: center;
+}
+
+/* ✏️ CAMBIO: Formulario centrado con box-shadow de color (mismo estilo que project cards).
+   margin: auto centra el formulario. El box-shadow con rgba morado da un brillo sutil alrededor */
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  max-width: 500px;
+  margin: 16px auto 24px;
+  padding: 32px;
+  background-color: #1a1a1a;
+  border: 1px solid #2a2a2a;
+  border-radius: 16px;
+  box-shadow: 0 8px 30px rgba(59, 5, 238, 0.25);
+  text-align: left;
+}
+
+/* Cada grupo de campo (label + input) se apila en columna */
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+/* Labels del formulario — texto pequeño y semi-opaco para no competir con los inputs */
+.contact-form label {
+  font-size: 0.9rem;
+  font-weight: 600;
+  opacity: 0.85;
+}
+
+/* ✏️ CAMBIO: Estilos compartidos para inputs y textarea.
+   Fondo oscuro con borde sutil, bordes redondeados, y texto claro.
+   font-family: inherit asegura que usen la misma fuente que el resto del sitio */
+.contact-form input,
+.contact-form textarea {
+  padding: 12px 14px;
+  background-color: #1a1a1a;
+  border: 1px solid #333;
+  border-radius: 8px;
+  color: #f5f5f5;
+  font-size: 1rem;
+  font-family: inherit;
+  transition: border-color 0.2s ease;
+}
+
+/* :focus — cuando el usuario hace click en un campo, el borde cambia a azul
+   para dar retroalimentación visual de qué campo está activo */
+.contact-form input:focus,
+.contact-form textarea:focus {
+  outline: none;
+  border-color: #4da6ff;
+}
+
+/* ::placeholder — estiliza el texto de ayuda que aparece cuando el campo está vacío */
+.contact-form input::placeholder,
+.contact-form textarea::placeholder {
+  color: #666;
+}
+
+/* El textarea no debe poder redimensionarse horizontalmente para mantener el diseño */
+.contact-form textarea {
+  resize: vertical;
+}
+
+/* ✏️ CAMBIO: El botón de submit hereda los estilos de .btn pero necesita estos ajustes
+   para que funcione como botón de formulario (sin borde del browser, cursor pointer) */
+.contact-form .btn {
+  border: none;
+  cursor: pointer;
+  font-size: 1rem;
+  align-self: flex-start;
+}
+
+.btn {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #4da6ff;
+  color: white;
+  text-decoration: none;
+  border-radius: 6px;
+  margin-top: 16px;
+  transition: background 0.2s ease; 
+}
+
+.btn:hover {
+  background-color: #2f85d3;
+}
+
+
+/* ✏️ CAMBIO: Estilos del menú hamburguesa (CSS-only, sin JavaScript).
+   Usa la técnica del checkbox oculto: un <input type="checkbox"> invisible
+   controla la visibilidad del menú a través del selector :checked */
+
+/* El checkbox siempre está oculto — solo se usa su estado :checked para controlar el menú */
+.menu-toggle {
+  display: none;
+}
+
+/* Ícono hamburguesa — oculto en desktop, visible solo en móvil via media query */
+.menu-icon {
+  display: none;
+  cursor: pointer;
+  padding: 8px;
+}
+
+/* Las 3 líneas del ícono hamburguesa — la línea del medio es el <span>,
+   y las líneas superior e inferior se crean con ::before y ::after */
+.hamburger {
+  display: block;
+  width: 22px;
+  height: 2px;
+  background: #f5f5f5;
+  position: relative;
+}
+
+.hamburger::before,
+.hamburger::after {
+  content: "";
+  display: block;
+  width: 22px;
+  height: 2px;
+  background: #f5f5f5;
+  position: absolute;
+}
+
+.hamburger::before {
+  top: -7px;
+}
+
+.hamburger::after {
+  top: 7px;
+}
+
+
+/* MEDIA QUERIES */
+
+@media (max-width: 480px) {
+  .hero-image img {
+    width: 220px;
+  }
+}
+
+/* ✏️ CAMBIO: Media query para móvil — activa el menú hamburguesa.
+   En pantallas ≤ 767px se ocultan los nav-links y se muestra el ícono hamburguesa.
+   Al tocar el ícono, el checkbox se marca y el selector :checked ~ .nav-links despliega el menú */
+@media (max-width: 767px) {
+
+  /* Permite que el nav haga wrap para que los links caigan debajo del logo */
+  .nav {
+    flex-wrap: wrap;
+  }
+
+  /* Muestra el ícono hamburguesa en pantallas pequeñas */
+  .menu-icon {
+    display: flex;
+    align-items: center;
+  }
+
+  /* Oculta los nav-links por defecto en móvil.
+     flex-basis: 100% los fuerza a ocupar una fila completa debajo del logo e ícono */
+  .nav-links {
+    display: none;
+    flex-basis: 100%;
+    flex-direction: column;
+    gap: 0;
+    padding: 8px 0;
+    border-top: 1px solid #333;
+  }
+
+  /* Selector :checked + combinador de hermano general (~):
+     Cuando el checkbox oculto está marcado (click/tap en hamburguesa),
+     muestra los nav-links como menú desplegable vertical */
+  .menu-toggle:checked ~ .nav-links {
+    display: flex;
+  }
+
+  /* Cada link ocupa todo el ancho con padding generoso para facilitar el toque en móvil */
+  .nav-links a {
+    display: block;
+    padding: 12px 10px;
+  }
+}
+
+/* ✏️ CAMBIO: Estas reglas mobile-first se movieron arriba a la sección Layout */
+
+/* ✏️ CAMBIO: Media queries actualizadas para layout responsive de tarjetas en pirámide */
+@media (min-width: 768px) {
+  .hero-container,
+  .footer-container {
+    flex-direction: row;
+    align-items: center;
+  }
+
+  /* Pantalla media: pirámide — 1 tarjeta arriba centrada, 2 abajo */
+  .project-link {
+    flex: 0 0 calc(50% - 12px);
+  }
+
+  .project-link:first-child {
+    flex: 0 0 100%;
+    display: flex;
+    justify-content: center;
+  }
+
+  .project-link:first-child .project-card {
+    max-width: calc(50% - 12px);
+  }
+}
+
+@media (min-width: 1024px) {
+  .hero { padding: 64px 16px; }
+
+  /* Pantalla grande: las 3 tarjetas en fila */
+  .project-link {
+    flex: 1 1 0;
+  }
+
+  .project-link:first-child {
+    flex: 1 1 0;
+    display: block;
+    justify-content: initial;
+  }
+
+  .project-link:first-child .project-card {
+    max-width: none;
+  }
+}
+
+@media (min-width: 1440px) {
+  main { max-width: 1200px; margin: 0 auto; }
+} 
