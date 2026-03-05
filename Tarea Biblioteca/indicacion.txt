@@ -1,0 +1,212 @@
+
+Fecha de entrega: 11 marzo Mecanismo de entrega: link de github o de codepen con el código
+Intro a JS, tipos primitivos, estructuras de control, objetos https://youtu.be/xy6rW8LmuFY
+Image
+La estaremos usando para ejercicios durante la clase https://jpgarbanzo.github.io/js-ai-coach/
+Bootstrap https://youtu.be/NJ3KfnfFaMA https://youtu.be/XxuZUVFTu0g
+Image
+Fecha de entrega: 4 marzo Forma de entrega: enviar formulario en ⁠entregas especificando en el nombre de la tarea Proyecto 1, se envía únicamente el link al repositorio de github Una vez entregado, se coordinará una hora de revisión mediante llamada, equivalente al 80% de la nota del proyecto. Muchos éxitos 
+Git, flexbox, responsive, proyecto 1 https://youtu.be/hmeaqPqZOEc 
+Image
+Selectores avanzados de CSS, CSS Position & Propiedades de CSS comunes https://youtu.be/qjmsr893rro
+https://youtu.be/fpxSpgQvZAQ
+Tarea corta JS
+Jose Pablo
+OP
+ — 8:09 PM
+Fecha de entrega: 11 marzo
+Mecanismo de entrega: link de github o de codepen con el código
+# 📚 Tarea Corta: Biblioteca Personal en JavaScript
+
+## Información del Proyecto
+
+- **📚 Tema:** Fundamentos de JavaScript (Variables, Control de Flujo, Arreglos, Objetos, Funciones y Clases)
+- **🎯 Nivel:** Básico
+
+message.txt
+5 KB
+﻿
+# 📚 Tarea Corta: Biblioteca Personal en JavaScript
+
+## Información del Proyecto
+
+- **📚 Tema:** Fundamentos de JavaScript (Variables, Control de Flujo, Arreglos, Objetos, Funciones y Clases)
+- **🎯 Nivel:** Básico
+- **📅 Entrega:** Repositorio de GitHub (solo el link)
+
+---
+
+## 🎯 Objetivo
+
+Crear un programa en JavaScript que simule una **Biblioteca Personal** usando clases, arreglos y funciones. Los resultados se visualizan en la **consola del navegador** (F12).
+
+---
+
+## 🏗️ Estructura de Clases
+
+### Clase `Libro`
+
+```javascript
+class Libro {
+  constructor(titulo, autor, genero, anio) {
+    // titulo      → string
+    // autor       → string
+    // genero      → string (ej: "Ficción", "Ciencia")
+    // anio        → number
+    // disponible  → boolean, inicia en true
+  }
+
+  info() {
+    // Retorna: "[Título] de [Autor] ([Año]) - Disponible / Prestado"
+  }
+}
+```
+
+### Clase `Biblioteca`
+
+```javascript
+class Biblioteca {
+  constructor(nombre) {
+    // nombre  → string
+    // libros  → arreglo vacío
+  }
+}
+```
+
+**4 métodos a implementar:**
+
+### 1. `agregarLibro(libro)`
+
+- Recibe una instancia de `Libro`
+- Si ya existe un libro con el mismo título: muestra error con `console.error` y no lo agrega
+- Si no existe: agrega el libro y confirma con `console.log`
+
+### 2. `buscarPorGenero(genero)`
+
+- Recibe un string con el género
+- Retorna un arreglo con todos los libros de ese género
+- La búsqueda no debe ser sensible a mayúsculas (usa `.toLowerCase()`)
+
+### 3. `prestar(titulo)`
+
+- Busca el libro por título
+- Si **no existe**: lanza un error con `throw`
+- Si **está prestado**: muestra que no está disponible
+- Si **está disponible**: cambia `disponible` a `false` y confirma
+
+### 4. `estadisticas()`
+
+- Muestra en consola:
+  - Total de libros
+  - Cuántos están disponibles
+  - Cuántos están prestados
+
+---
+
+## 🧪 Datos de Prueba
+
+Al final de tu `script.js` ejecuta lo siguiente y verifica los resultados en consola:
+
+```javascript
+const miBiblioteca = new Biblioteca("Mi Biblioteca");
+
+// Agregar 5 libros
+miBiblioteca.agregarLibro(
+  new Libro("Cien años de soledad", "García Márquez", "Ficción", 1967),
+);
+miBiblioteca.agregarLibro(
+  new Libro("El código Da Vinci", "Dan Brown", "Thriller", 2003),
+);
+miBiblioteca.agregarLibro(
+  new Libro("Breve historia del tiempo", "Stephen Hawking", "Ciencia", 1988),
+);
+// ... agrega 2 libros más de tu elección
+
+// Duplicado (debe mostrar error)
+miBiblioteca.agregarLibro(
+  new Libro("El código Da Vinci", "Dan Brown", "Thriller", 2003),
+);
+
+// Prestar un libro y volver a intentarlo
+try {
+  miBiblioteca.prestar("Cien años de soledad");
+  miBiblioteca.prestar("Cien años de soledad"); // ya prestado
+} catch (error) {
+  console.error("Error:", error.message);
+}
+
+// Buscar por género
+const ciencia = miBiblioteca.buscarPorGenero("ciencia");
+console.log(
+  "Libros de Ciencia:",
+  ciencia.map((l) => l.info()),
+);
+
+// Estadísticas
+miBiblioteca.estadisticas();
+```
+
+---
+
+## 💻 Requisitos Técnicos
+
+- ✅ JavaScript vanilla (sin frameworks)
+- ✅ Clases con `class` y `constructor`
+- ✅ Arrow functions en al menos un método de arreglo (`filter`, `find`, `map`)
+- ✅ `===` para comparaciones
+- ✅ `try/catch` al llamar `prestar()`
+
+---
+
+## 📦 Estructura de Archivos
+
+```
+mi-biblioteca/
+├── index.html   ← Solo carga el script
+├── script.js    ← Toda la lógica
+└── README.md    ← Descripción breve
+```
+
+`index.html` mínimo:
+
+```html
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Biblioteca</title>
+  </head>
+  <body>
+    <h1>Abre la consola (F12)</h1>
+    <script src="script.js"></script>
+  </body>
+</html>
+```
+
+---
+
+## 📊 Criterios de Evaluación
+
+| Criterio                                    | Puntos |
+| ------------------------------------------- | ------ |
+| Clase `Libro` con constructor e `info()`    | 20%    |
+| `agregarLibro` con validación de duplicados | 20%    |
+| `prestar` con los 3 casos + `throw`         | 25%    |
+| `buscarPorGenero` sin importar mayúsculas   | 20%    |
+| `estadisticas` con totales correctos        | 15%    |
+
+**Total: 100%**
+
+---
+
+## 💡 Consejos
+
+1. Implementa y prueba **un método a la vez**
+2. Usa `console.log` dentro de los métodos para ver valores intermedios
+3. `find` te sirve para buscar un libro por título; `filter` para buscar varios
+
+---
+
+_📚 Web Fundamentals - Fundamentos de JavaScript (Versión Corta)_
+message.txt
+5 KB
