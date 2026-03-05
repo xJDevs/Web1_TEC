@@ -1,16 +1,14 @@
 /* 
-
-Orden estrucutural del archivo CSS:
-1. Reset: quita/controla los estilos por defecto que trae el browser 
-2. Global: reglas que hereda todo el sitio web 
-3. Layout: como va organizada la pagina - Flexbox
-4. Componentes: piezas reutilizables o repetibles del diseño
-5. Media Queries: estilos segun resoluciones 
-
+  Estructura del CSS:
+  1. Reset — controla estilos por defecto del browser
+  2. Global — reglas que hereda todo el sitio
+  3. Layout — organización de la página con Flexbox
+  4. Componentes — piezas reutilizables del diseño
+  5. Media Queries — estilos según resoluciones
 */
 
 
-/* RESET */
+/* ========== RESET ========== */
 
 /* box-sizing: border-box para que el tamaño de elementos sea consistente y no se ‘infle’ con padding/border. Sin border-box, su valor por defecto seria content-box, donde el width primero mide el contenido, y luego suma padding y borde */
 
@@ -18,14 +16,11 @@ Orden estrucutural del archivo CSS:
   box-sizing: border-box; 
 }
 
-/* GLOBAL */
 
-/* Se quita margin para controlar el espacio desde 0 */ 
+/* ========== GLOBAL ========== */
 
-
-/* ✏️ CAMBIO: Bloques body fusionados en uno solo */
 body {
-  margin: 0;
+  margin: 0;   /* margin: 0; quita el margin por defecto del body y asi se controla desde 0 */
   font-family: Arial, sans-serif;
   background-color: #0f0f0f;
   color: #f5f5f5;
@@ -46,22 +41,16 @@ p {
   font-size: 1rem;
 }
 
-/* Global link styles */
-
+/* Estilos globales de links — se quita underline y se hereda el color del padre */
 a {
   color: inherit;
   text-decoration: none;
 }
 
 
+/* ========== LAYOUT (Flexbox) ========== */
 
-
-/* LAYOUT */
-
-/* flex en el <nav> para organizar el layout - flex alinea horizontalmente 
-El contenedor usa justify-content: space-between para colocar el logo a la izquierda y los links a la derecha.
-Luego la lista de navegación también usa Flexbox para distribuir los enlaces horizontalmente con gap para el espaciado.
-*/
+/* Nav usa justify-content: space-between para logo a la izquierda y links a la derecha */
 .nav { 
   display: flex; 
   justify-content: space-between; 
@@ -78,29 +67,27 @@ Luego la lista de navegación también usa Flexbox para distribuir los enlaces h
   padding: 0; 
 }
 
-/* ✏️ CAMBIO: Sin width: 100% el contenedor se ajusta al tamaño de su contenido
-   y el justify-content: center del padre (.hero) lo centra como bloque */
+/* Hero container: Flexbox para 2 columnas (imagen + texto). En móvil se vuelve columna */
 .hero-container { 
   display: flex; 
   gap: 40px; 
   align-items: center; 
 }
 
-/* ✏️ CAMBIO: flex: 1 hace que el texto se expanda para llenar el espacio disponible del contenedor */
+/* flex: 1 hace que el texto se expanda para llenar el espacio disponible */
 .hero-content {
   flex: 1;
 }
 
+/* flex-wrap: permite que los elementos salten a la siguiente línea cuando no hay espacio */
 .skills-container { 
   display: flex; 
   flex-wrap: wrap; 
-  /* permite que los elementos salten a la siguiente línea cuando no hay espacio */
   gap: 16px; 
   justify-content: center;   /* centra todas las filas */
   align-items: center;       /* alinea verticalmente si hay alturas distintas */
 }
 
-/* ✏️ CAMBIO: Layout del contenedor de proyectos actualizado para centrar tarjetas */
 .projects-container { 
   display: flex; 
   gap: 24px; 
@@ -114,7 +101,7 @@ Luego la lista de navegación también usa Flexbox para distribuir los enlaces h
   gap: 24px; 
 }
 
-/* ✏️ CAMBIO: Movido aquí desde abajo — estas reglas mobile-first estaban sueltas entre media queries */
+/* Mobile-first: columna por defecto, se cambia a row en media queries */
 .hero-container,
 .footer-container {
   flex-direction: column;
@@ -122,26 +109,12 @@ Luego la lista de navegación también usa Flexbox para distribuir los enlaces h
 }
 
 
+/* ========== COMPONENTES ========== */
 
-
-/* COMPONENTES */
-
+/* vw = viewport width, calc() combina unidades fijas y relativas para padding escalable */
 main { 
-  /* vw = "viewport width" -  1vw = 1% del ancho de la pantalla
-  calc permite calculos en CSS
-  combina unidades fijas y relativas entonces el padding crece en pantallas mas grandes y lo hace escalable
-  */
   padding-left: calc(16px + 1vw);
   padding-right: calc(16px + 1vw);
-}
-
-.header { 
-  padding: 16px; 
-  border-bottom: 1px solid #ccc;
-  position: sticky; 
-  top: 0;
-  background-color: #0f0f0f;
-  z-index: 1000;
 }
 
 /* 
@@ -152,12 +125,21 @@ z-index - asegura que quede encima del contenido
 background-color - evita transparencia al hacer scroll
 */
 
+.header { 
+  padding: 16px; 
+  border-bottom: 1px solid #ccc;
+  position: sticky; 
+  top: 0;
+  background-color: #0f0f0f;
+  z-index: 1000;
+}
+
+
 .logo {
   font-weight: 700;
 }
 
-/* pseudoelementos que agregan <> antes y despues, sin modificar HTML */
-
+/* Pseudo-elementos ::before y ::after: agregan contenido visual sin modificar el HTML */
 .logo::before {
   content: "<";
   margin-right: 4px;
@@ -170,27 +152,25 @@ background-color - evita transparencia al hacer scroll
   opacity: 0.6;
 }
 
-
-/* ✏️ CAMBIO: Se eliminaron text-decoration y color porque ya están definidos en los estilos globales de <a> */
-.nav-links a {   /* selecciona todos los links dentro de este elemento */
+/* Selector descendiente: selecciona todos los <a> dentro de .nav-links */
+.nav-links a {
   padding: 6px 10px;
   border-radius: 6px;
   transition: background 0.2s ease;
 }
 
-/* son el mismo elemento, pero los separo porque ambos tienen estados interactivos diferentes. Uno tiene un estado por default todo el tiempo y otro solo cuando se le pasa el cursor */ 
-
-.nav-links a:hover { /* pseudo selector */
+/* Pseudo-clase :hover — estado interactivo al pasar el cursor */
+.nav-links a:hover {
   background: rgba(255,255,255,0.08);
 }
 
-
+/* Pseudo-clase :focus — retroalimentación visual al navegar con teclado (accesibilidad) */
 .nav-links a:focus {
-  outline: 2px solid #3617ae; /* da color a los elementos cuando estan seleccionados */ 
+  outline: 2px solid #3617ae;
   outline-offset: 2px;
 }
 
-/* selector de hijo directo: en CSS ">" significa hijo directo, solo los <li> hijos directos del "nav-links" */
+/* Selector de hijo directo (>) — solo los <li> hijos directos de .nav-links */
 .nav > .nav-links > li {
   padding: 2px 0;
 }
@@ -200,11 +180,7 @@ h2 + p {
   opacity: 0.9;
 }
 
-/* selector por atributo: selecciona todos los <a> cuyo atributo href empieza con "https" y "mailto" */
-
-/* Sin underline por defecto (ya que el estilo global de <a> lo quita).
-   Aquí solo definimos el color del underline y lo activamos en hover. */
-
+/* Selector de atributo [href^="..."] — selecciona links cuyo href empiece con "https" o "mailto" */
 a[href^="https"]:hover,
 a[href^="mailto"]:hover {
   text-decoration: underline;
@@ -212,35 +188,31 @@ a[href^="mailto"]:hover {
   text-underline-offset: 3px;
 }
 
-/* pseudo-clase nth-child: selecciona la segunda tarjeta dentro "projects-container" */
-
+/* Pseudo-clase :nth-child() — selecciona la segunda tarjeta para darle un hover diferente */
 .projects-container > .project-link:nth-child(2) .project-card:hover { 
   transform: translateY(-6px);
   box-shadow: 0 12px 30px rgba(241, 41, 114, 0.25);
   border-color: rgba(241, 41, 114, 0.25); 
 }
 
+/* Pseudo-clase :last-child — selecciona el último elemento hijo.
+   Aquí selecciona el último link del nav y le agrega un borde sutil para diferenciarlo */
+.nav-links li:last-child a {
+  border: 1px solid rgba(187, 63, 232, 0.3);
+}
 
-
-
-/* ✏️ CAMBIO: Se agregó display: flex y justify-content: center para que el bloque .hero-container
-   se centre horizontalmente en la sección, sin cambiar la alineación interna de sus elementos */
+/* Técnica para que el hero abarque 100% del viewport, ignorando el padding del padre:
+   width: 100vw + left: 50% + translateX(-50%) lo centra a ancho completo */
 .hero { 
-  /* ✏️ CAMBIO: Técnica para que el hero abarque todo el ancho del viewport,
-     sin importar el padding del contenedor padre (<main>).
-     width: 100vw lo hace tan ancho como la ventana,
-     position: relative + left: 50% lo mueve al centro,
-     transform: translateX(-50%) lo re-centra */
   width: 100vw;
   position: relative;
   left: 50%;
   transform: translateX(-50%);
   padding: 40px calc(16px + 1vw); 
-  /* vh - "viewport height" - 1vh = 1% del alto de la pantalla. Se utiliza para secciones que ocupan gran parte de la pantalla */
+  /* vh = viewport height — min-height: 60vh ocupa al menos 60% de la pantalla */
   min-height: 60vh;
-  /* ✏️ CAMBIO: Dos gradientes en capas — el primero se difumina de transparente a negro (#0f0f0f)
-     hacia abajo, mezclándose con el fondo de la página. El segundo es el gradiente diagonal de color.
-     CSS permite apilar múltiples backgrounds separados por coma (el primero queda encima). */
+  /* Dos gradientes en capas: el primero se difumina a negro hacia abajo,
+     el segundo da color diagonal. Se separan con coma (el primero queda encima) */
   background-image: 
     linear-gradient(to bottom, transparent 50%, #0f0f0f 100%),
     linear-gradient(135deg, rgba(77,166,255,0.15), rgba(59,5,238,0.10));
@@ -250,7 +222,6 @@ a[href^="mailto"]:hover {
   justify-content: center;
 }
 
-/* ✏️ CAMBIO: Imagen del hero más grande para que el contenido ocupe más espacio visual */
 .hero-image img {
   width: 340px;
   aspect-ratio: 1 / 1;
@@ -261,13 +232,12 @@ a[href^="mailto"]:hover {
   border-radius: 50%;
 }
 
-/* ✏️ CAMBIO: Quita el margen por defecto de <figure>.
-   Ahora .hero-image es un <figure> en vez de <div>, y <figure> trae margin por defecto del browser */
+/* Quita el margin por defecto de <figure> (los browsers agregan margin automáticamente) */
 .hero-image {
   margin: 0;
 }
 
-/* ✏️ CAMBIO: figcaption en blanco — el usuario quiere que sea legible, se quitó opacity */
+/* Estilo para <figcaption> — leyenda semántica de la imagen dentro del <figure> */
 .hero-image figcaption {
   text-align: center;
   font-size: 0.85rem;
@@ -276,8 +246,7 @@ a[href^="mailto"]:hover {
   font-style: italic;
 }
 
-/* ✏️ CAMBIO: Pseudo-elemento ::first-line — resalta la primera línea renderizada del texto de "Sobre mí".
-   Se quitó el color azul porque el usuario no quiere color en ese texto. Se mantiene font-weight para cumplir la rúbrica */
+/* Pseudo-elemento ::first-line — estiliza solo la primera línea renderizada del párrafo */
 .about-description p::first-line {
   font-weight: 600;
 }
@@ -287,28 +256,16 @@ a[href^="mailto"]:hover {
   padding: 3rem 1rem; 
 }
 
-/* ✏️ CAMBIO: Bloques .skill-card fusionados en uno solo + se agregó transition para hover suave */
+/* Skill cards con Flexbox en columna + transition para hover suave */
 .skill-card { 
-
-  /* 
-  flex-grow
-  flex-shrink
-  flex-basis
-
-  flex-basis define el tamaño base del elemento, flex-grow permite que crezca si hay espacio disponible y flex-shrink permite que se reduzca cuando el contenedor es pequeño.
-
-  */
-
   width: 110px;
   padding: 14px 12px;
   border-radius: 12px;
-
   display: flex;
   flex-direction: column;
   gap: 8px;
   align-items: center;
   justify-content: center;
-
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
@@ -318,14 +275,13 @@ a[href^="mailto"]:hover {
   object-fit: contain;
 }
 
+/* transform + box-shadow en :hover — efecto de elevación sin mover otros elementos */
 .skill-card:hover {
   transform: translateY(-4px);
   box-shadow: 0 10px 25px rgba(0,0,0,0.3);
 }
 
-/* ✏️ CAMBIO: Rediseño completo de tarjetas de proyecto — inspirado en imagen de referencia */
-
-/* Contenedor del link — actúa como flex item del projects-container */
+/* Tarjetas de proyecto — overflow: hidden recorta la imagen a los bordes redondeados */
 .project-link {
   display: block;
   color: inherit;
@@ -344,7 +300,7 @@ a[href^="mailto"]:hover {
   flex-direction: column;
 }
 
-/* Imagen de proyecto — ocupa todo el ancho superior */
+
 .project-card img {
   width: 100%;
   height: 200px;
@@ -376,7 +332,7 @@ a[href^="mailto"]:hover {
   flex-grow: 1;
 }
 
-/* Etiqueta de tecnología — barra de color al fondo de la tarjeta, similar a la imagen de referencia */
+/* Barra de color al fondo con linear-gradient */
 .project-tag {
   display: block;
   padding: 10px 20px;
@@ -414,13 +370,12 @@ a[href^="mailto"]:hover {
   margin-top: 24px; 
 }
 
-/* ✏️ CAMBIO: Sección de contacto centrada */
+/* Sección de contacto centrada */
 .contact {
   text-align: center;
 }
 
-/* ✏️ CAMBIO: Formulario centrado con box-shadow de color (mismo estilo que project cards).
-   margin: auto centra el formulario. El box-shadow con rgba morado da un brillo sutil alrededor */
+/* Formulario con box-shadow de color (mismo estilo visual que las project cards) */
 .contact-form {
   display: flex;
   flex-direction: column;
@@ -435,7 +390,6 @@ a[href^="mailto"]:hover {
   text-align: left;
 }
 
-/* Cada grupo de campo (label + input) se apila en columna */
 .form-group {
   display: flex;
   flex-direction: column;
@@ -449,9 +403,7 @@ a[href^="mailto"]:hover {
   opacity: 0.85;
 }
 
-/* ✏️ CAMBIO: Estilos compartidos para inputs y textarea.
-   Fondo oscuro con borde sutil, bordes redondeados, y texto claro.
-   font-family: inherit asegura que usen la misma fuente que el resto del sitio */
+/* font-family: inherit asegura que inputs y textarea usen la misma fuente del sitio */
 .contact-form input,
 .contact-form textarea {
   padding: 12px 14px;
@@ -464,27 +416,24 @@ a[href^="mailto"]:hover {
   transition: border-color 0.2s ease;
 }
 
-/* :focus — cuando el usuario hace click en un campo, el borde cambia a azul
-   para dar retroalimentación visual de qué campo está activo */
+/* :focus — borde azul cuando el campo está activo (retroalimentación visual) */
 .contact-form input:focus,
 .contact-form textarea:focus {
   outline: none;
   border-color: #4da6ff;
 }
 
-/* ::placeholder — estiliza el texto de ayuda que aparece cuando el campo está vacío */
+/* Pseudo-elemento ::placeholder — estiliza el texto de ayuda dentro de inputs vacíos */
 .contact-form input::placeholder,
 .contact-form textarea::placeholder {
   color: #666;
 }
 
-/* El textarea no debe poder redimensionarse horizontalmente para mantener el diseño */
 .contact-form textarea {
   resize: vertical;
 }
 
-/* ✏️ CAMBIO: El botón de submit hereda los estilos de .btn pero necesita estos ajustes
-   para que funcione como botón de formulario (sin borde del browser, cursor pointer) */
+/* Botón de submit: hereda .btn pero sin borde del browser y con cursor pointer */
 .contact-form .btn {
   border: none;
   cursor: pointer;
@@ -503,29 +452,29 @@ a[href^="mailto"]:hover {
   transition: background 0.2s ease; 
 }
 
+/* transform: scale() — agranda el botón ligeramente al hacer hover.
+   A diferencia de translate (que mueve), scale cambia el tamaño del elemento.
+   El valor 1.05 = 105% del tamaño original, un efecto sutil pero perceptible */
 .btn:hover {
   background-color: #2f85d3;
+  transform: scale(1.05);
 }
 
+/* ===== Menú hamburguesa CSS-only (sin JavaScript) =====
+   Técnica: checkbox oculto cuyo estado :checked controla la visibilidad del menú
+   a través del combinador de hermano general (~) */
 
-/* ✏️ CAMBIO: Estilos del menú hamburguesa (CSS-only, sin JavaScript).
-   Usa la técnica del checkbox oculto: un <input type="checkbox"> invisible
-   controla la visibilidad del menú a través del selector :checked */
-
-/* El checkbox siempre está oculto — solo se usa su estado :checked para controlar el menú */
 .menu-toggle {
-  display: none;
+  display: none; /* checkbox siempre oculto */
 }
 
-/* Ícono hamburguesa — oculto en desktop, visible solo en móvil via media query */
 .menu-icon {
-  display: none;
+  display: none; /* oculto en desktop, visible en móvil via media query */
   cursor: pointer;
   padding: 8px;
 }
 
-/* Las 3 líneas del ícono hamburguesa — la línea del medio es el <span>,
-   y las líneas superior e inferior se crean con ::before y ::after */
+/* Las 3 líneas del ícono: <span> es la línea central, ::before y ::after las otras dos */
 .hamburger {
   display: block;
   width: 22px;
@@ -553,7 +502,7 @@ a[href^="mailto"]:hover {
 }
 
 
-/* MEDIA QUERIES */
+/* ========== MEDIA QUERIES (responsive) ========== */
 
 @media (max-width: 480px) {
   .hero-image img {
@@ -561,14 +510,10 @@ a[href^="mailto"]:hover {
   }
 }
 
-/* ✏️ CAMBIO: Media query para móvil — activa el menú hamburguesa.
-   En pantallas ≤ 767px se ocultan los nav-links y se muestra el ícono hamburguesa.
-   Al tocar el ícono, el checkbox se marca y el selector :checked ~ .nav-links despliega el menú */
+/* Móvil (≤767px): activa el menú hamburguesa */
 @media (max-width: 767px) {
-
-  /* Permite que el nav haga wrap para que los links caigan debajo del logo */
   .nav {
-    flex-wrap: wrap;
+    flex-wrap: wrap; /* permite que los links caigan debajo del logo */
   }
 
   /* Muestra el ícono hamburguesa en pantallas pequeñas */
@@ -577,8 +522,7 @@ a[href^="mailto"]:hover {
     align-items: center;
   }
 
-  /* Oculta los nav-links por defecto en móvil.
-     flex-basis: 100% los fuerza a ocupar una fila completa debajo del logo e ícono */
+  /* Oculta nav-links por defecto. flex-basis: 100% los fuerza a fila completa debajo */
   .nav-links {
     display: none;
     flex-basis: 100%;
@@ -588,23 +532,18 @@ a[href^="mailto"]:hover {
     border-top: 1px solid #333;
   }
 
-  /* Selector :checked + combinador de hermano general (~):
-     Cuando el checkbox oculto está marcado (click/tap en hamburguesa),
-     muestra los nav-links como menú desplegable vertical */
+  /* :checked + combinador ~ : cuando el checkbox está marcado, muestra los links */
   .menu-toggle:checked ~ .nav-links {
     display: flex;
   }
 
-  /* Cada link ocupa todo el ancho con padding generoso para facilitar el toque en móvil */
   .nav-links a {
     display: block;
     padding: 12px 10px;
   }
 }
 
-/* ✏️ CAMBIO: Estas reglas mobile-first se movieron arriba a la sección Layout */
-
-/* ✏️ CAMBIO: Media queries actualizadas para layout responsive de tarjetas en pirámide */
+/* Tablet (≥768px): layout horizontal + pirámide de tarjetas (1 arriba, 2 abajo) */
 @media (min-width: 768px) {
   .hero-container,
   .footer-container {
@@ -628,6 +567,7 @@ a[href^="mailto"]:hover {
   }
 }
 
+/* Desktop (≥1024px): 3 tarjetas en fila */
 @media (min-width: 1024px) {
   .hero { padding: 64px 16px; }
 
@@ -647,6 +587,7 @@ a[href^="mailto"]:hover {
   }
 }
 
+/* Ultra-wide (≥1440px): limita el ancho máximo del contenido */
 @media (min-width: 1440px) {
   main { max-width: 1200px; margin: 0 auto; }
-} 
+}
