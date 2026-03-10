@@ -1,0 +1,22 @@
+
+
+.titulo {
+
+    border: 2px solid #F72585;
+    background-color: #fbb6d5;
+    color: #F72585;
+    font-size: 40px;
+    text-align: center;
+    padding: 20px;
+    margin: 50px;
+
+}
+
+body {
+    background-color: #d8b6fb;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
