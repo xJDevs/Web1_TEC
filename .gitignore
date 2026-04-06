@@ -1,0 +1,38 @@
+# ============================================================
+# macOS
+# ============================================================
+.DS_Store
+.AppleDouble
+.LSOverride
+Thumbs.db
+
+# ============================================================
+# Archivos internos / notas de desarrollo
+# (no deben subirse al repositorio)
+# ============================================================
+**/historial.md
+**/learnings.md
+**/PENDINGLEARNINGS.md
+**/pending_research.md
+**/mentoring_quests.md
+**/proyecto-plan-checklist.md
+**/trainer.config.js
+
+# ============================================================
+# Editores y IDEs
+# ============================================================
+.vscode/
+.idea/
+*.code-workspace
+
+# ============================================================
+# Dependencias (si usas Node en algún proyecto)
+# ============================================================
+node_modules/
+npm-debug.log*
+
+# ============================================================
+# Builds / dist
+# ============================================================
+dist/
+build/
