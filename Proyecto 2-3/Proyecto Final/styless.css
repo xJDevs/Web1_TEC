@@ -1,0 +1,94 @@
+/* 
+  Estilo Retro/8-Bits (Diseño original)
+  Separado en un archivo externo para fomentar buenas prácticas de 
+  separación de responsabilidades.
+*/
+
+/* Definimos una paleta de colores base muy similar a la terminal retro especificada */
+:root {
+  --bg:      #0D0F14;
+  --surface: #161921;
+  --border:  #2A3040;
+  --text:    #D8E0F0;
+  --accent:  #F5C842; /* Amarillo estilo Pikachu para detalles */
+  --blue:    #4A8CF5; /* Azul Stage 1 */
+  --red:     #E84040; /* Rojo Stage 2 */
+  --pixel:   'Press Start 2P', monospace;
+  --body:    'DM Sans', sans-serif;
+}
+
+* { margin:0; padding:0; box-sizing:border-box; }
+
+/* Configuración del body tipo Flex para centrar absolutamente todo el contenido */
+body { 
+  background: var(--bg); 
+  color: var(--text); 
+  font-family: var(--body); 
+  display: flex; 
+  flex-direction: column; 
+  align-items: center; 
+  justify-content: center; 
+  min-height: 100vh; 
+  text-align: center; 
+}
+
+/* Título principal diseñado como el Logo Clásico de Pokémon */
+h1 { 
+  font-family: var(--pixel); 
+  font-size: 2.2rem; /* Ligeramente más grande para más impacto */
+  color: #FFCB05; /* Amarillo icónico de Pokémon */
+  /* Usamos múltiples sombras para crear un borde azul grueso (#2A75BB) y un toque de volumen oscuro */
+  text-shadow: 
+    -3px -3px 0 #2A75BB,  
+     3px -3px 0 #2A75BB,
+    -3px  3px 0 #2A75BB,
+     3px  3px 0 #2A75BB,
+     4px  4px 0 #184880; /* Azul marino para dar profundidad inferior */
+  margin-bottom: 2rem; 
+  line-height: 1.5; 
+  letter-spacing: 2px;
+}
+
+.subtitle { 
+  font-family: 'Space Mono', monospace; 
+  font-size: 0.9rem; 
+  margin-bottom: 4rem; 
+  color: #5A6480; 
+}
+
+.menu { 
+  display: flex; 
+  gap: 2rem; 
+  flex-wrap: wrap; 
+  justify-content: center; 
+}
+
+/* Botones reutilizables del menú */
+.btn { 
+  background: var(--surface); 
+  color: var(--text); 
+  padding: 1.5rem 2rem; 
+  border: 2px solid var(--border); 
+  border-radius: 4px; 
+  text-decoration: none; 
+  font-family: var(--pixel); 
+  font-size: 0.8rem; 
+  letter-spacing: 0.1em; 
+  transition: 0.2s all; 
+}
+
+/* Colores personalizados según a qué stage van alineados */
+.btn.stage1 { border-color: var(--blue); }
+.btn.stage2 { border-color: var(--red); }
+
+/* Efectos hover para que se sienta dinámico e interactivo */
+.btn.stage1:hover { 
+  background: rgba(74,140,245,0.1); 
+  transform: translateY(-3px); 
+  box-shadow: 0 4px 15px rgba(74,140,245,0.2); 
+}
+.btn.stage2:hover { 
+  background: rgba(232,64,64,0.1); 
+  box-shadow: 0 4px 15px rgba(232,64,64,0.2); 
+  transform: translateY(-3px);
+}
