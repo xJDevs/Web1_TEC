@@ -1,0 +1,242 @@
+/* 
+  Hoja de estilos dedicada exclusivamente al Stage 1. 
+  Hereda las variables base que ya estaban aprobadas en el menú principal.
+*/
+
+:root {
+  --bg:      #0D0F14;
+  --surface: #161921;
+  --border:  #2A3040;
+  --text:    #D8E0F0;
+  --pixel:   'Press Start 2P', monospace;
+  --body:    'DM Sans', sans-serif;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--body);
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+}
+
+.container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.stage-header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.stage-header h1 {
+  font-family: var(--pixel);
+  color: var(--text);
+}
+
+/* 
+  Flexbox Layout: Crear un contenedor (caja display) para poner las 
+  tres secciones (jugador, buscador, oponente) exactamente alineadas
+  'space-between' separa los elementos automáticamente llenando los vacíos
+*/
+.cards-layout {
+  display: flex;
+  justify-content: space-between;
+  gap: 2rem;
+}
+
+.card {
+  background: var(--surface);
+  /* Borde temporalmente punteado (dashed) gris oscuro para identificar las cajas base */
+  border: 2px dashed var(--border); 
+  border-radius: 8px;
+  flex: 1;
+  min-height: 400px;
+  
+  /* Nuevas reglas: se organiza todo de arriba hacia abajo y centrado */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1.5rem;
+  box-sizing: border-box;
+}
+
+.card-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.pokemon-name {
+  font-family: var(--pixel);
+  font-size: 1.2rem;
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+  min-height: 1.2rem;
+}
+
+.sprite-container {
+  width: 150px;
+  height: 150px;
+  background: rgba(0,0,0,0.3); /* Cuadro semitransparente que simula la sombra */
+  border: 2px solid var(--border);
+  border-radius: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.pokemon-sprite {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  /* Atributo CLAVE para sprites 2D: Evita que el navegador ponga borrosos los píxeles */
+  image-rendering: pixelated; 
+}
+
+/* 
+  Clase Utilitaria: '.hidden'
+  Esta clase se usa exclusivamente para ocultar elementos de la pantalla de forma programática.
+  La propiedad 'display: none' borra por completo un elemento del HTML.
+  Para evitar que reglas preexistentes como un 'flex' vuelvan a mostrar el elemento,
+  se añade el modificador '!important', el cual dictamina una regla absoluta que el 
+  navegador debe priorizar por encima de cualquier otra regla.
+*/
+.hidden {
+  display: none !important;
+}
+
+/* Sistema de las barras de vida (HP) */
+.stats-container {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 1rem;
+}
+
+.hp-label {
+  font-family: var(--pixel);
+  font-size: 0.8rem;
+  color: #3CE858;
+}
+
+.hp-bar-bg {
+  flex: 1;
+  height: 15px;
+  background: var(--bg);
+  border: 2px solid var(--border);
+  border-radius: 4px;
+}
+
+.hp-bar-fill {
+  height: 100%;
+  background: #3CE858;
+  width: 100%; /* Inicia lleno */
+  transition: width 0.3s ease; /* Transición animada al sufrir daño */
+}
+
+.pokemon-type {
+  font-size: 0.9rem;
+  text-transform: capitalize;
+  min-height: 1rem;
+}
+
+.search-area {
+  flex: 0.5; /* Hacer la mitad de ancho que las cartas laterales */
+  border-left: 1px dashed var(--border);
+  border-right: 1px dashed var(--border);
+  min-height: 400px;
+  position: relative; /* Para empujar la caja de busqueda al centro exacto */
+}
+
+/* Zona central del buscador de Pokémons */
+.search-box {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  width: 80%;
+  margin: 0 auto;
+  margin-top: 50%;
+  transform: translateY(-50%); /* Truco avanzado de centrado vertical */
+}
+
+.search-box input {
+  padding: 1rem;
+  background: var(--bg);
+  border: 2px solid var(--border);
+  color: var(--text);
+  font-family: var(--pixel);
+  font-size: 0.9rem;
+  border-radius: 4px;
+  text-align: center;
+}
+
+/* 
+  Pseudo-clase ':focus'
+  Se activa en el milisegundo en que el usuario hace clic dentro de la caja para escribir.
+  'outline: none' destruye el borde azul genérico que los navegadores web insertan por defecto.
+  'border-color' lo reemplaza inyectando nuestro propio estilo visual de caja activa.
+*/
+.search-box input:focus {
+  outline: none;
+  border-color: #FFCB05; /* Referencia al icónico amarillo Pokémon */
+}
+
+/* Estilo para los botones principales simulando 3D retro */
+.retro-btn {
+  padding: 1rem;
+  background: #FFCB05;
+  color: #0D0F14; /* Letra oscura para contrastar */
+  font-family: var(--pixel);
+  font-size: 0.9rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  /* Sombra artificial sólida hacia abajo */
+  box-shadow: 0 4px 0 #D6A800; 
+  transition: transform 0.1s, box-shadow 0.1s;
+}
+
+/* Estado de apretón del botón retro (se aplasta contra el piso) */
+.retro-btn:active {
+  transform: translateY(4px); /* Baja 4 pixeles */
+  box-shadow: 0 0 0 transparent; /* Desaparece la sombra */
+}
+
+.error-msg {
+  color: #E84040; /* Rojo alarma */
+  font-family: var(--body);
+  text-align: center;
+  margin-top: 1rem;
+  font-weight: bold;
+}
+
+/* Especialización de color para el botón de ir al round 2 */
+#start-battle-btn {
+  margin-top: 2rem;
+  background: #3CE858;       /* Verde victoria */
+  box-shadow: 0 4px 0 #28A745;
+}
+
+/* ==================================
+   SKELETON LOADER (Animación Dinámica)
+   ================================== */
+@keyframes pulse {
+    0% { background-color: var(--border); }
+    50% { background-color: #3f475c; }
+    100% { background-color: var(--border); }
+}
+
+.skeleton-loader {
+    width: 100%;
+    height: 180px;
+    border-radius: 8px;
+    margin-top: 16px;
+    animation: pulse 1.5s ease-in-out infinite; 
+}

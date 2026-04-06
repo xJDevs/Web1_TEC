@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pokémon Battle - Stage 2</title>
+  
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  
+  <script type="module" src="main.js"></script>
+</head>
+<body>
+  
+  <!-- Usamos la misma lógica semántica de main y section -->
+  <main class="battle-container">
+    
+    <header class="stage-header">
+      <h1>STAGE 2: LA ARENA</h1>
+      <p class="subtitle">¡A luchar!</p>
+    </header>
+
+    <!-- La arena principal que aloja a ambos contrincantes -->
+    <div class="arena-layout">
+      <!-- Lado del jugador -->
+      <section id="player-side" class="battle-side">
+        <!-- JS inyectará al Entrenador aquí -->
+      </section>
+
+      <!-- Divisor central para el botón de atacar -->
+      <div class="actions-area">
+        <!-- El botón de ataque y barra de mensajes irán aquí -->
+      </div>
+
+      <!-- Lado del oponente -->
+      <section id="opponent-side" class="battle-side">
+        <!-- JS inyectará al Oponente guardado desde Stage 1 -->
+      </section>
+    </div>
+
+  </main>
+
+</body>
+</html>

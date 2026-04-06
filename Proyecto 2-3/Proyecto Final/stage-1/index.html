@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pokémon Selector - Stage 1</title>
+  
+  <!-- Recuperar las 3 fuentes de Google para heredar el diseño retro del índice -->
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  
+  <!-- 
+    CONEXIÓN CON LA LÓGICA (JavaScript):
+    La etiqueta <script> funciona como el puente que conecta el HTML
+    con su "cerebro" o controlador lógico. El atributo 'src' indica de dónde importar esa lógica
+    Sin esta línea, la página sería completamente estática y sin vida 
+
+    "type='module'" ES CRÍTICO: 
+    Sin esto, el navegador daría error al usar las palabras clave 'import' y 'export' en JS.
+    Además, los módulos por defecto se comportan como 'defer', esto significa que esperan 
+    silenciosamente en segundo plano hasta que el HTML termine de cargar, acelerando la página web
+  -->
+  <script type="module" src="main.js"></script>
+</head>
+<body>
+  
+  <!-- 
+    Usar etiquetas semánticas de HTML5 (<main>, <section>, <header>) 
+    en vez de puros <div>s ayuda a hacer el código más amigable con el SEO 
+    y con tecnologías de lectura para personas no videntes
+  -->
+  <main class="container">
+    
+    <header class="stage-header">
+      <h1>STAGE 1</h1>
+      <p class="subtitle">Buscador y Selector de Batalla</p>
+    </header>
+
+    <div class="cards-layout">
+      <!-- Cuadro izquierdo (Jugador) -->
+      <section id="player-card" class="card">
+        <h2 class="pokemon-name" id="player-name">---</h2>
+        <div id="player-skeleton" class="skeleton-loader hidden"></div>
+        <div id="player-content" class="card-content">
+          <div class="sprite-container">
+            <img id="player-sprite" src="" alt="Player Pokemon" class="pokemon-sprite hidden">
+          </div>
+          <div class="stats-container">
+            <span class="hp-label" id="player-hp-label">HP</span>
+            <div class="hp-bar-bg"><div class="hp-bar-fill" id="player-hp-bar"></div></div>
+          </div>
+          <p class="pokemon-type" id="player-types"></p>
+        </div>
+      </section>
+
+      <!-- Cuadro central (Barra de Búsqueda) -->
+      <section id="search-section" class="search-area">
+        <div class="search-box">
+          <!-- "autocomplete=off" evita historiales estorbosos -->
+          <input type="text" id="pokemon-search-input" placeholder="Nombre o ID..." autocomplete="off">
+          <button id="search-btn" class="retro-btn">BUSCAR</button>
+        </div>
+        <div id="search-error" class="error-msg hidden">¡Salvaje no encontrado!</div>
+      </section>
+
+      <!-- Cuadro derecho (Oponente) -->
+      <section id="opponent-card" class="card">
+        <h2 class="pokemon-name" id="opponent-name">? ? ?</h2>
+        <div id="opponent-skeleton" class="skeleton-loader hidden"></div>
+        <div id="opponent-content" class="card-content hidden">
+          <div class="sprite-container">
+            <img id="opponent-sprite" src="" alt="Opponent Pokemon" class="pokemon-sprite hidden">
+          </div>
+          <div class="stats-container hidden" id="opponent-stats">
+            <span class="hp-label hidden" id="opponent-hp-label">HP</span>
+            <div class="hp-bar-bg"><div class="hp-bar-fill" id="opponent-hp-bar"></div></div>
+          </div>
+          <p class="pokemon-type" id="opponent-types"></p>
+        </div>
+        
+        <!-- Este botón solo aparece si la búsqueda es exitosa -->
+        <button id="start-battle-btn" class="retro-btn hidden">¡ESTOY LISTO!</button>
+      </section>
+    </div>
+
+  </main>
+
+</body>
+</html>

@@ -1,0 +1,46 @@
+<!-- 
+  Esta es la pagina principal del proyecto, aqui se encuentran los enlaces para ir a los diferentes stages.
+--> 
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pokémon Battle</title>
+  
+  <!-- 
+    AQUÍ OCURRE LA MAGIA DEL DISEÑO RETRO: 
+    Este enlace importa directamente desde Google Fonts 3 tipografías:
+    1. 'Press Start 2P': Otorga esa apariencia icónica de cuadritos 8-bits a los encabezados.
+    2. 'Space Mono': Para números y subtítulos (estilo máquina de escribir/código).
+    3. 'DM Sans': Una fuente muy moderna para leer textos largos sin cansar la vista.
+    *Si este <link> se borra, los navegadores mostrarán las letras en 'Times New Roman' o 'Arial'*
+  -->
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <!-- Enlazamos la hoja de estilos externa -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Cabecera del proyecto -->
+  <h1>POKÉMON BATTLE<br>PROJECT</h1>
+  <div class="subtitle">Vanilla JS · Individual Project · Web I</div>
+  
+  <!-- Contenedor flex del menú interactivo -->
+  <div class="menu">
+    <!-- Enlace relativo directo hacia el selector de pokemones -->
+    <a href="stage-1/index.html" class="btn stage1">STAGE 1: SELECTOR</a>
+    
+    <!-- Enlace relativo hacia la arena. Nota: Este stage requiere pasar primero por el 1 -->
+    <a href="stage-2/index.html" class="btn stage2" title="Requiere Data en LocalStorage de Stage 1">STAGE 2: BATTLE</a>
+  </div>
+
+  <!-- 
+    Nota: Aunque los requisitos del proyecto no mencionaban explícitamente un 'style.css' 
+    en la raíz, se ha optado por separar la hoja de estilos externa para 
+    fomentar y mantener buenas prácticas de separación del código.
+  -->
+</body>
+</html>
