@@ -1,18 +1,19 @@
 /* 
-  Estilo Retro/8-Bits (Diseño original)
+  Estilo Retro/8-Bits
   Separado en un archivo externo para fomentar buenas prácticas de 
-  separación de responsabilidades.
+  separación de responsabilidades
 */
 
-/* Definimos una paleta de colores base muy similar a la terminal retro especificada */
+/* Root es un selector que apunta al elemento raíz de la página, en este caso el <html> */
+
 :root {
-  --bg:      #0D0F14;
-  --surface: #161921;
-  --border:  #2A3040;
-  --text:    #D8E0F0;
-  --accent:  #F5C842; /* Amarillo estilo Pikachu para detalles */
-  --blue:    #4A8CF5; /* Azul Stage 1 */
-  --red:     #E84040; /* Rojo Stage 2 */
+  --bg:      #06060E;
+  --surface: #0E0B1A;
+  --border:  #2D1B4E;
+  --text:    #D8D0F0;
+  --accent:  #A855F7; /* Amarillo estilo Pikachu para detalles */
+  --blue:    #7C3AED; /* Azul Stage 1 */
+  --red:     #C026D3; /* Rojo Stage 2 */
   --pixel:   'Press Start 2P', monospace;
   --body:    'DM Sans', sans-serif;
 }
@@ -33,17 +34,19 @@ body {
 }
 
 /* Título principal diseñado como el Logo Clásico de Pokémon */
+
 h1 { 
   font-family: var(--pixel); 
-  font-size: 2.2rem; /* Ligeramente más grande para más impacto */
-  color: #FFCB05; /* Amarillo icónico de Pokémon */
-  /* Usamos múltiples sombras para crear un borde azul grueso (#2A75BB) y un toque de volumen oscuro */
+  font-size: 2.2rem; /* Ligeramente más grande */
+  color: #E8D8FF; 
+
+  /* El text-shadow múltiple crea el efecto de borde grueso alrededor del texto */
   text-shadow: 
-    -3px -3px 0 #2A75BB,  
-     3px -3px 0 #2A75BB,
-    -3px  3px 0 #2A75BB,
-     3px  3px 0 #2A75BB,
-     4px  4px 0 #184880; /* Azul marino para dar profundidad inferior */
+    -3px -3px 0 #4B0082,  
+     3px -3px 0 #4B0082,
+    -3px  3px 0 #4B0082,
+     3px  3px 0 #4B0082,
+     4px  4px 0 #1A0033; /* Se usa para dar profundidad inferior */
   margin-bottom: 2rem; 
   line-height: 1.5; 
   letter-spacing: 2px;
@@ -53,7 +56,7 @@ h1 {
   font-family: 'Space Mono', monospace; 
   font-size: 0.9rem; 
   margin-bottom: 4rem; 
-  color: #5A6480; 
+  color: var(--text); 
 }
 
 .menu { 

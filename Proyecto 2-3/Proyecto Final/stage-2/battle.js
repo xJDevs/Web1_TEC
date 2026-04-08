@@ -6,7 +6,7 @@
 // llevar el control matemático de la vida (HP) de ambos Pokémon y manejar la lógica de victoria
 
 export function initBattle(playerPokemon, opponentPokemon) {
-    // Alistamos a los contrincantes para matricularlos en la pelea
+    // Alistamos a los pokemones para la pelea 
 }
 
 export function handleAttack() {

@@ -1,6 +1,6 @@
 /* 
-  Hoja de estilos dedicada exclusivamente al Stage 1. 
-  Hereda las variables base que ya estaban aprobadas en el menú principal.
+  Hoja de estilos dedicada exclusivamente al Stage 1
+  Hereda las variables base que ya estaban aprobadas en el menú principal
 */
 
 :root {
@@ -30,6 +30,7 @@ body {
 .stage-header {
   text-align: center;
   margin-bottom: 3rem;
+  color: var(--text);
 }
 
 .stage-header h1 {
@@ -42,6 +43,7 @@ body {
   tres secciones (jugador, buscador, oponente) exactamente alineadas
   'space-between' separa los elementos automáticamente llenando los vacíos
 */
+
 .cards-layout {
   display: flex;
   justify-content: space-between;
@@ -50,13 +52,13 @@ body {
 
 .card {
   background: var(--surface);
-  /* Borde temporalmente punteado (dashed) gris oscuro para identificar las cajas base */
+  /* Borde temporalmente dashed para identificar las cajas base */
   border: 2px dashed var(--border); 
   border-radius: 8px;
   flex: 1;
   min-height: 400px;
   
-  /* Nuevas reglas: se organiza todo de arriba hacia abajo y centrado */
+  /* Se organiza todo de arriba hacia abajo y centrado */
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -105,7 +107,7 @@ body {
   La propiedad 'display: none' borra por completo un elemento del HTML.
   Para evitar que reglas preexistentes como un 'flex' vuelvan a mostrar el elemento,
   se añade el modificador '!important', el cual dictamina una regla absoluta que el 
-  navegador debe priorizar por encima de cualquier otra regla.
+  navegador debe priorizar por encima de cualquier otra regla
 */
 .hidden {
   display: none !important;
@@ -163,7 +165,13 @@ body {
   width: 80%;
   margin: 0 auto;
   margin-top: 50%;
-  transform: translateY(-50%); /* Truco avanzado de centrado vertical */
+  /* 
+    Truco de centrado vertical:
+    'margin-top: 50%' baja el borde superior del elemento al centro del contenedor
+    'translateY(-50%)' sube el elemento la mitad de SU PROPIA altura, 
+    dejándolo visualmente centrado en el espacio disponible
+  */
+  transform: translateY(-50%);
 }
 
 .search-box input {
@@ -179,19 +187,19 @@ body {
 
 /* 
   Pseudo-clase ':focus'
-  Se activa en el milisegundo en que el usuario hace clic dentro de la caja para escribir.
-  'outline: none' destruye el borde azul genérico que los navegadores web insertan por defecto.
-  'border-color' lo reemplaza inyectando nuestro propio estilo visual de caja activa.
+  Se activa en el milisegundo en que el usuario hace clic dentro de la caja para escribir
+  'outline: none' quita el borde azul genérico que los navegadores web insertan por defecto
+  'border-color' lo reemplaza inyectando nuestro propio estilo visual de caja activa
 */
 .search-box input:focus {
   outline: none;
-  border-color: #FFCB05; /* Referencia al icónico amarillo Pokémon */
+  border-color: var(--text); 
 }
 
 /* Estilo para los botones principales simulando 3D retro */
 .retro-btn {
   padding: 1rem;
-  background: #FFCB05;
+  background: var(--text);
   color: #0D0F14; /* Letra oscura para contrastar */
   font-family: var(--pixel);
   font-size: 0.9rem;
@@ -199,18 +207,18 @@ body {
   border-radius: 4px;
   cursor: pointer;
   /* Sombra artificial sólida hacia abajo */
-  box-shadow: 0 4px 0 #D6A800; 
+  box-shadow: 0 4px 0 var(--border); 
   transition: transform 0.1s, box-shadow 0.1s;
 }
 
-/* Estado de apretón del botón retro (se aplasta contra el piso) */
+/* :active — simula un click, bajando el elemento y eliminando la sombra */
 .retro-btn:active {
   transform: translateY(4px); /* Baja 4 pixeles */
   box-shadow: 0 0 0 transparent; /* Desaparece la sombra */
 }
 
 .error-msg {
-  color: #E84040; /* Rojo alarma */
+  color: #E84040; 
   font-family: var(--body);
   text-align: center;
   margin-top: 1rem;
@@ -220,7 +228,7 @@ body {
 /* Especialización de color para el botón de ir al round 2 */
 #start-battle-btn {
   margin-top: 2rem;
-  background: #3CE858;       /* Verde victoria */
+  background: #3CE858;      
   box-shadow: 0 4px 0 #28A745;
 }
 

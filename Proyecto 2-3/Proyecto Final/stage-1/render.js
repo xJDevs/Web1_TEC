@@ -44,6 +44,7 @@ export function drawPlayerCard(pokemonData) {
     const hpBarEl = document.getElementById('player-hp-bar');
     const cardEl = document.getElementById('player-card')
     const hpSpan = document.getElementById('player-hp-label')
+    const playerBattleBtn = document.getElementById('player-start-battle-btn')
 
     // Se le da color al player card
     // Se extrae el color principal de mi pokemon
@@ -64,6 +65,10 @@ export function drawPlayerCard(pokemonData) {
     typesEl.style.textShadow = `0 0 12px ${primaryColor}`
 
     nameEl.style.textShadow = `0 0 12px ${primaryColor}`  // desplazamiento + desenfoque + color: efecto neon
+
+    playerBattleBtn.style.background = primaryColor
+    playerBattleBtn.style.boxShadow = `0 4px 0 ${primaryColor}99`; // 99 = 60% opacidad en hex
+    playerBattleBtn.style.color = '#0D0F14'; 
     
 
 
@@ -134,6 +139,12 @@ export function drawOpponentCard(pokemonData) {
   // Ocultamos el esqueleto de carga del oponente y revelamos los verdaderos datos
   document.getElementById('opponent-skeleton').classList.add('hidden');
   document.getElementById('opponent-content').classList.remove('hidden');
+
+  // El botón de batalla toma el color del tipo del oponente
+  const battleBtn = document.getElementById('start-battle-btn');
+  battleBtn.style.background = primaryOpColor;
+  battleBtn.style.boxShadow = `0 4px 0 ${primaryOpColor}99`; // 99 = 60% opacidad en hex
+  battleBtn.style.color = '#0D0F14'; 
 }
 
 // Función para limpiar los estilos del oponente

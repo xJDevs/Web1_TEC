@@ -1,0 +1,22 @@
+
+# Ignorar todos los markdowns
+*.md
+
+# EXCEPTO el README
+!README.md
+
+
+# macOS — archivos basura que crea el sistema
+.DS_Store
+
+# Editor
+.vscode/
+
+# Node — si usas npm en algún momento
+node_modules/
+
+# Variables de entorno — nunca subir contraseñas o keys
+.env
+
+# Logs
+*.log

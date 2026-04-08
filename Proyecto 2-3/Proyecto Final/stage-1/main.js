@@ -62,6 +62,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     const searchInput = document.getElementById('pokemon-search-input');
     const searchError = document.getElementById('search-error');
     const startBattleBtn = document.getElementById('start-battle-btn');
+    const playerStartBattleBtn = document.getElementById('player-start-battle-btn');
 
 
 
@@ -118,6 +119,8 @@ document.addEventListener('DOMContentLoaded', async () => {
                 startBattleBtn.classList.remove('hidden');
                 // se guarda la data del pokemon rival en la variable global que se almacenara en browser storage
                 RivalPokemonDataGlobal = opponentData; 
+                playerStartBattleBtn.classList.remove('hidden'); 
+                // se muestra el boton de iniciar batalla de mi pokemon
             }
 
         }, 300);

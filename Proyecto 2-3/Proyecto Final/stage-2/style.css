@@ -32,7 +32,6 @@ body {
 .stage-header {
   text-align: center;
   margin-bottom: 3rem;
-  /* Le damos un toque rojizo agresivo exclusivo de la arena */
   color: var(--hp-red); 
 }
 
@@ -46,7 +45,7 @@ body {
   color: #5A6480;
 }
 
-/* El flex de la arena es similar al del selector pero con el botón peleador en el centro */
+/* El flex de la arena es similar al del selector pero con el botón de pelear en el centro */
 .arena-layout {
   display: flex;
   justify-content: space-between;
@@ -60,7 +59,7 @@ body {
   border-radius: 8px;
   flex: 1;
   min-height: 400px;
-  position: relative; /* Crucial para sobreponer la barra de vida más tarde */
+  position: relative; /* Crucial para sobreponer la barra de vida */
 }
 
 .actions-area {
