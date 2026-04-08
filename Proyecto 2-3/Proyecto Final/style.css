@@ -4,16 +4,21 @@
   separación de responsabilidades
 */
 
-/* Root es un selector que apunta al elemento raíz de la página, en este caso el <html> */
+/* 
+  :root es un selector que apunta al elemento más alto de toda la pagina web, que es la etiqueta <html>
+  Se usa como un 'contenedor global' para guardar todas las variables personalizadas (colores y fuentes)
+  Como está en el nivel más alto, cualquier otro elemento de la página va a poder ver y usar estas variables
+  Esto facilita el trabajo porque si se desea cambiar el color principal, solo se modifica una línea de código
+*/
 
 :root {
   --bg:      #06060E;
   --surface: #0E0B1A;
   --border:  #2D1B4E;
   --text:    #D8D0F0;
-  --accent:  #A855F7; /* Amarillo estilo Pikachu para detalles */
-  --blue:    #7C3AED; /* Azul Stage 1 */
-  --red:     #C026D3; /* Rojo Stage 2 */
+  --accent:  #A855F7; 
+  --blue:    #7C3AED; 
+  --red:     #C026D3; 
   --pixel:   'Press Start 2P', monospace;
   --body:    'DM Sans', sans-serif;
 }

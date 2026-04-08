@@ -11,34 +11,78 @@
   <script type="module" src="main.js"></script>
 </head>
 <body>
-  
-  <!-- se usa la misma lógica semántica de main y section -->
   <main class="battle-container">
-    
     <header class="stage-header">
       <h1>STAGE 2: LA ARENA</h1>
       <p class="subtitle">¡A luchar!</p>
     </header>
 
-    <!-- La arena principal que aloja a ambos contrincantes -->
-    <div class="arena-layout">
-      <!-- Lado del jugador -->
-      <section id="player-side" class="battle-side">
-        <!-- JS inyectará al Entrenador aquí -->
-      </section>
-
-      <!-- Divisor central para el botón de atacar -->
-      <div class="actions-area">
-        <!-- El botón de ataque y barra de mensajes irán aquí -->
+    <div class="pokemon-arena">
+      <!-- Fila del Oponente (Arriba) -->
+      <div class="arena-row opponent-row">
+        <div class="stats-box">
+          <h2 id="opponent-name">--Nombre del Oponente--</h2>
+          <div class="hp-bar-container">
+            <div id="opponent-hp-bar" class="hp-fill hp-red"></div>
+          </div>
+          <p class="hp-text"><span id="opponent-hp-current">0</span> / <span id="opponent-hp-max">0</span> HP</p>
+        </div>
+        
+        <div class="grid-area">
+           <div class="cell" id="o-cell-1"></div>
+           <div class="cell" id="o-cell-2"></div>
+           <div class="cell" id="o-cell-3"></div>
+        </div>
       </div>
 
-      <!-- Lado del oponente -->
-      <section id="opponent-side" class="battle-side">
-        <!-- JS inyectará al Oponente guardado desde Stage 1 -->
-      </section>
+      <!-- Fila del Jugador -->
+      <div class="arena-row player-row">
+        <div class="grid-area">
+           <div class="cell" id="p-cell-1"></div>
+           <div class="cell" id="p-cell-2"></div>
+           <div class="cell" id="p-cell-3"></div>
+        </div>
+
+        <div class="stats-box player-stats">
+          <h2 id="player-name">--Nombre del Jugador--</h2>
+          <div class="hp-bar-container">
+            <div id="player-hp-bar" class="hp-fill hp-green"></div>
+          </div>
+          <p class="hp-text"><span id="player-hp-current">0</span> / <span id="player-hp-max">0</span> HP</p>
+        </div>
+      </div>
+      
+      <div class="enemy-status">
+         <div id="warning-box" class="warning-box hidden">¡Ataque inminente!</div>
+      </div>
     </div>
 
+    <!-- Panel Inferior  -->
+    <div class="battle-menu">
+      <div class="log-panel" id="battle-log">
+        <div id="log-content" class="log-content"></div>
+      </div>
+      
+      <div class="controls-panel">
+        <div class="cooldown-container">
+           <span class="cooldown-label">Ataque Rápido</span>
+           <div class="cooldown-wrapper">
+             <div id="cooldown-fill" class="cooldown-fill-inner"></div>
+           </div>
+        </div>
+        <button id="btn-definitive" class="btn-action">Definitivo!</button>
+      </div>
+    </div>
   </main>
 
+  <!-- Modal de fin de partida -->
+
+  <div id="end-screen" class="end-screen hidden">
+    <div class="end-modal">
+      <h2 id="end-title">¡Batalla Terminada!</h2>
+      <p id="end-message"></p>
+      <button id="btn-restart" class="btn-action">Battle Again</button>
+    </div>
+  </div>
 </body>
 </html>
