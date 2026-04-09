@@ -20,7 +20,7 @@
     <div class="pokemon-arena">
       <!-- Fila del Oponente (Arriba) -->
       <div class="arena-row opponent-row">
-        <div class="stats-box">
+        <div class="stats-box" id="opponent-stats">
           <h2 id="opponent-name">--Nombre del Oponente--</h2>
           <div class="hp-bar-container">
             <div id="opponent-hp-bar" class="hp-fill hp-red"></div>
@@ -29,10 +29,8 @@
         </div>
         
         <div class="grid-area">
-           <div class="cell" id="o-cell-1"></div>
-           <div class="cell" id="o-cell-2"></div>
-           <div class="cell" id="o-cell-3"></div>
-        </div>
+           <div class="cell" id="e-cell-1"></div>
+        </div> <!-- aqui va el pokemon oponente  -->
       </div>
 
       <!-- Fila del Jugador -->
@@ -43,7 +41,7 @@
            <div class="cell" id="p-cell-3"></div>
         </div>
 
-        <div class="stats-box player-stats">
+        <div class="stats-box player-stats" id="player-stats">
           <h2 id="player-name">--Nombre del Jugador--</h2>
           <div class="hp-bar-container">
             <div id="player-hp-bar" class="hp-fill hp-green"></div>
