@@ -25,7 +25,7 @@
 
 * { margin:0; padding:0; box-sizing:border-box; }
 
-/* Configuración del body tipo Flex para centrar absolutamente todo el contenido */
+/* onfiguración del body tipo Flex para centrar absolutamente todo el contenido */
 body { 
   background: var(--bg); 
   color: var(--text); 

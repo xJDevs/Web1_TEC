@@ -4,10 +4,13 @@
 */
 
 :root {
-  --bg:      #0D0F14;
-  --surface: #161921;
-  --border:  #2A3040;
-  --text:    #D8E0F0;
+  --bg:      #06060E;
+  --surface: #0E0B1A;
+  --border:  #2D1B4E;
+  --text:    #D8D0F0;
+  --accent:  #A855F7; 
+  --blue:    #7C3AED; 
+  --red:     #C026D3; 
   --pixel:   'Press Start 2P', monospace;
   --body:    'DM Sans', sans-serif;
 }
