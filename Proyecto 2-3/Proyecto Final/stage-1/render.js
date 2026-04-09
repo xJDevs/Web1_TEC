@@ -12,7 +12,7 @@
 // cualquier función pueda leerlo como una constante universal
 // sin tener que recrearlo en memoria múltiples veces. Reemplaza el uso de 18 condicionales if/else
     
-const TYPE_COLORS = {
+export const TYPE_COLORS = {
     normal: '#A8A77A',
     fire: '#EE8130',
     water: '#6390F0',
