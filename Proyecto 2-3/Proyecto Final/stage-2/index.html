@@ -8,6 +8,13 @@
   <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
   
+  <!-- Evita que el HTML cargue si no hay datos en el local storage -->
+  <script>
+    if (!localStorage.getItem('playerData') || !localStorage.getItem('opponentData')) {
+      window.location.replace('../stage-1/index.html');
+    }
+  </script>
+
   <script type="module" src="main.js"></script>
 </head>
 <body>
