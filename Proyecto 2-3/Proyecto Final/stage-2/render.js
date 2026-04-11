@@ -4,6 +4,7 @@
 // Ningún cálculo lógico se hace acá, solo se pintan datos en pantalla
 
 import { TYPE_COLORS } from "../stage-1/render.js";
+import {GAME_STATE } from "./battle.js"
 
 export function renderBattlefield(playerData, opponentData) {
     
@@ -60,6 +61,88 @@ export function renderBattlefield(playerData, opponentData) {
     
 }
 
-export function updateHealthBar(targetId, newHP) {
-    // Actualiza visualmente el tamaño (ancho %) de la barra de vida en pantalla
+
+// Actualiza visualmente el tamaño (ancho %) y texto de la barra de vida
+
+export function updateHealthBar(playerType, currentHP, maxHP) {
+    // Convertimos la vida en porcentaje
+    const percentage = (currentHP / maxHP) * 100; 
+    const bar = document.getElementById(`${playerType}-hp-bar`);
+    const text = document.getElementById(`${playerType}-hp-current`);
+    
+    if (bar) bar.style.width = `${percentage}%`; // se le da ancho porcentual a la barra 
+    if (text) text.textContent = currentHP;
 }
+
+// Ejecuta una animacion de sacudida y brillo cuando un pokemon recibe daño
+export function animateHit(playerType) {
+    const sprite = document.getElementById(`${playerType}-sprite`);
+    if (!sprite) return; // defensive programming, no queremos que por un error el programa intente renderizar un sprite que no existe y bote todo el programa 
+
+    // Agregamos la clase que tiene el CSS de shake y brillo
+    sprite.classList.add('hit');
+
+    // La quitamos despues de 300ms para que se pueda repetir en el proximo golpe
+    setTimeout(() => {
+        sprite.classList.remove('hit');
+    }, 300);
+}
+
+// Escribe un mensaje en el log de batalla y hace scroll hacia abajo
+export function renderLog(message, pokemonName, type = 'system') {
+    const logContent = document.getElementById('log-content');
+    if (!logContent) return;
+
+    // JS haria esto -> <div class='log-entry player'> </div>, necesario para el CSS
+    const entry = document.createElement('div');
+    entry.classList.add('log-entry', type);
+
+    if (type === 'player') {
+        entry.style.color = TYPE_COLORS[GAME_STATE.player.stats.types[0]]
+    } else if (type === 'enemy') {
+        entry.style.color = TYPE_COLORS[GAME_STATE.opponent.stats.types[0]]
+    }
+
+    entry.textContent = `> ${pokemonName}: ${message}`;
+    
+    logContent.appendChild(entry);
+
+    // Auto-scroll al final del panel
+    const logPanel = document.getElementById('battle-log');
+    if (logPanel) {
+        logPanel.scrollTop = logPanel.scrollHeight;
+    }
+}
+
+
+ // Mueve el sprite del jugador a la celda indicada y aplica estilos de plataforma activa
+export function updatePlayerPosition(newPosition, type) {
+    const playerSprite = document.getElementById('player-sprite'); // creado arriba en renderBattlefield
+    const newCell = document.getElementById(`p-cell-${newPosition}`); 
+    
+    // 1. Limpiamos estilos de todas las celdas del jugador
+    /*
+      querySelectorAll devuelve una lista de elementos que coinciden con un selector de CSS
+      busca player-row, se mete y luego busca .cell
+      Se obtienen a la vez todas las celdas pertenecientes a la fila del jugador
+      para eliminarles los estilos de iluminacion activa 
+    */
+    document.querySelectorAll('.player-row .cell').forEach(cell => {
+        cell.classList.remove('active');
+        cell.style.borderBottomColor = '';
+        cell.style.background = '';
+    });
+
+    // 2. Teletransportamos el sprite a la nueva celda
+    if (newCell && playerSprite) {
+        newCell.appendChild(playerSprite);
+        
+        // 3. Se aplica el brillo de plataforma activa basado en el tipo
+        newCell.classList.add('active');
+        newCell.style.borderBottomColor = TYPE_COLORS[type];
+        newCell.style.background = `radial-gradient(ellipse at bottom, ${TYPE_COLORS[type]}33, transparent 70%)`;
+    }
+}
+
+
+
