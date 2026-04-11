@@ -221,10 +221,6 @@ body {
   gap: 0.5rem;
 }
 
-.log-entry.player { color: var(--hp-green); }
-.log-entry.enemy { color: var(--hp-red); }
-.log-entry.system { color: #E8B940; font-style: italic; }
-
 .controls-panel {
   width: 300px;
   padding: 1.5rem;
