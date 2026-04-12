@@ -34,6 +34,13 @@
     <header class="stage-header">
       <h1>STAGE 1</h1>
       <p class="subtitle">Buscador y Selector de Batalla</p>
+      
+      <!-- Trainer Card -->
+      <div class="trainer-header-card">
+        <h3 id="trainer-card-name"></h3>
+        <p id="trainer-card-hometown"></p>
+        <p id="trainer-card-catchphrase"></p>
+      </div>
     </header>
 
     <div class="cards-layout">
@@ -50,6 +57,10 @@
             <div class="hp-bar-bg"><div class="hp-bar-fill" id="player-hp-bar"></div></div>
           </div>
           <p class="pokemon-type" id="player-types"></p>
+          
+          <!-- Stats y movimientos -->
+          <div class="extra-stats" id="player-extra-stats"></div>
+          <div class="pokemon-moves" id="player-moves"></div>
         </div>
 
         <button id="player-start-battle-btn" class="retro-btn hidden">¡ESTOY LISTO!</button>
@@ -78,6 +89,10 @@
             <div class="hp-bar-bg"><div class="hp-bar-fill" id="opponent-hp-bar"></div></div>
           </div>
           <p class="pokemon-type" id="opponent-types"></p>
+          
+          <!-- Stats y movimientos -->
+          <div class="extra-stats" id="opponent-extra-stats"></div>
+          <div class="pokemon-moves" id="opponent-moves"></div>
         </div>
         
         

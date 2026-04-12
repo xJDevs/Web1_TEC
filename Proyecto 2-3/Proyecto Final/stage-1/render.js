@@ -45,6 +45,10 @@ export function drawPlayerCard(pokemonData) {
     const cardEl = document.getElementById('player-card')
     const hpSpan = document.getElementById('player-hp-label')
     const playerBattleBtn = document.getElementById('player-start-battle-btn')
+    
+    // Elementos requeridos de Fase 1
+    const extraStatsEl = document.getElementById('player-extra-stats');
+    const movesEl = document.getElementById('player-moves');
 
     // Se le da color al player card
     // Se extrae el color principal de mi pokemon
@@ -78,6 +82,26 @@ export function drawPlayerCard(pokemonData) {
     nameEl.innerText = `${pokemonData.name}`;
     typesEl.innerText = pokemonData.types.join(' | '); // Une la lista separándola con "|"
 
+    // Inyectamos las base stats con algo de arte ASCII para decoración y los 4 movimientos obligatorios
+    extraStatsEl.innerHTML = `ATK: <strong>${pokemonData.attack}</strong> | DEF: <strong>${pokemonData.defense}</strong> | SPD: <strong>${pokemonData.speed}</strong>`;
+    movesEl.innerHTML = `MOVES: <strong>${pokemonData.moves.map(m => m.name).join(', ')}</strong>`;
+    
+    // Mini-estilos inyectados directamente
+    extraStatsEl.classList.add('hp-label');
+    extraStatsEl.style.color = primaryColor;
+    extraStatsEl.style.fontSize = '0.5rem';
+    extraStatsEl.style.marginTop = '12px';
+    extraStatsEl.style.textAlign = 'center';
+    extraStatsEl.style.textShadow = `0 0 12px ${primaryColor}`
+    
+    movesEl.classList.add('hp-label');
+    movesEl.style.color = primaryColor
+    movesEl.style.fontSize = '0.5rem';
+    movesEl.style.marginTop = '6px';
+    movesEl.style.textAlign = 'center';
+    movesEl.style.opacity = '0.8';
+    movesEl.style.textShadow = `0 0 12px ${primaryColor}`
+
     // 3. Inyectamos la dirección de la foto traída de internet directamente al atributo 'src'
     spriteEl.src = pokemonData.imgUrl;
     
@@ -101,6 +125,10 @@ export function drawOpponentCard(pokemonData) {
     const hpBarEl = document.getElementById('opponent-hp-bar');
     const cardEl = document.getElementById('opponent-card')
     const hpSpan = document.getElementById("opponent-hp-label")
+    
+    // stats requeridos de Fase 1 para el rival
+    const extraStatsEl = document.getElementById('opponent-extra-stats');
+    const movesEl = document.getElementById('opponent-moves');
     
 
     const primaryOpColor = TYPE_COLORS[pokemonData.types[0]]
@@ -126,6 +154,25 @@ export function drawOpponentCard(pokemonData) {
 
   nameEl.innerText = pokemonData.name;
   typesEl.innerText = pokemonData.types.join(' | ');
+  
+  extraStatsEl.innerHTML = `ATK: <strong>${pokemonData.attack}</strong> | DEF: <strong>${pokemonData.defense}</strong> | SPD: <strong>${pokemonData.speed}</strong>`;
+
+  movesEl.innerHTML = `MOVES: <strong>${pokemonData.moves.map(m => m.name).join(', ')}</strong>`;
+
+  extraStatsEl.classList.add('hp-label');
+  extraStatsEl.style.color = primaryOpColor;
+  extraStatsEl.style.fontSize = '0.5rem';
+  extraStatsEl.style.marginTop = '12px';
+  extraStatsEl.style.textAlign = 'center';
+  extraStatsEl.style.textShadow = `0 0 12px ${primaryOpColor}`
+
+  movesEl.classList.add('hp-label');
+  movesEl.style.color = primaryOpColor;
+  movesEl.style.fontSize = '0.5rem';
+  movesEl.style.marginTop = '6px';
+  movesEl.style.textAlign = 'center';
+  movesEl.style.opacity = '0.8';
+  movesEl.style.textShadow = `0 0 12px ${primaryOpColor}`
  
   spriteEl.src = pokemonData.imgUrl;
   spriteEl.classList.remove('hidden');
@@ -157,4 +204,11 @@ export function clearOpponentStyles() {
     cardEl.style.border = '';
     cardEl.style.boxShadow = '';
     nameEl.style.textShadow = '';
+}
+
+// Pintor de la Trainer Card
+export function renderTrainerCard(config) {
+    document.getElementById('trainer-card-name').innerText = `[ TRAINER: ${config.name.toUpperCase()} ]`;
+    document.getElementById('trainer-card-hometown').innerText = `Origin: ${config.hometown}`;
+    document.getElementById('trainer-card-catchphrase').innerText = `» ${config.catchphrase} «`;
 }

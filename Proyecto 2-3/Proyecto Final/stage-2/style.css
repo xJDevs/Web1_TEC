@@ -144,6 +144,23 @@ body {
   background: radial-gradient(ellipse at bottom, rgba(60,232,88,0.2), transparent 70%);
 }
 
+/* Estado de peligro: Cuando el enemigo va a atacar esta celda */
+.cell.warning {
+  background: radial-gradient(ellipse at bottom, rgba(232, 64, 64, 0.4), transparent 70%);
+  border-bottom: 4px solid var(--hp-red);
+  animation: dangerPulse 0.5s infinite alternate;
+}
+
+/* 
+  Keyframes: momentos mas importantes de la animacion
+  From y To representan el estado inicial (0%) y final (100%) del ciclo
+  Crear esta animacion permite reutilizarla despues en otros elementos 
+*/
+@keyframes dangerPulse {
+  from { box-shadow: 0 0 5px var(--hp-red); }
+  to { box-shadow: 0 0 20px var(--hp-red); }
+}
+
 .cell .sprite {
   height: 110px;
   object-fit: contain;
@@ -151,7 +168,7 @@ body {
   transition: transform 0.2s;
 }
 
-/* Animations (Movimientos / Dodge) */
+/* Animcaciones: Movimientos / Dodge */
 .dodge { transform: translateX(-30px); opacity: 0.6; }
 .attack-anim { transform: translateX(30px) scale(1.1); }
 .hit {
@@ -201,7 +218,7 @@ body {
   border: 4px solid var(--border);
   border-radius: 8px;
   display: flex;
-  min-height: 140px;
+  height: 160px; /* Tamaño máximo estricto para evitar que crezca cuando hay muchos mensajes */
 }
 
 .log-panel {

@@ -4,13 +4,14 @@
 // Ningún cálculo lógico se hace acá, solo se pintan datos en pantalla
 
 import { TYPE_COLORS } from "../stage-1/render.js";
-import {GAME_STATE } from "./battle.js"
+import { GAME_STATE, addLog } from "./battle.js"
+import TRAINER_CONFIG from "../trainer.config.js";
 
 export function renderBattlefield(playerData, opponentData) {
     
     // 1. Inyectamos los nombres en el HTML
-    document.getElementById('player-name').textContent = playerData.name;
-    document.getElementById('opponent-name').textContent = opponentData.name;
+    document.getElementById('player-name').textContent = playerData.name.toUpperCase();
+    document.getElementById('opponent-name').textContent = opponentData.name.toUpperCase();
 
     // 2. Pintamos el HP directamente en los textos visuales
     // Este HP ya viene calculado y sobreescrito desde battle.js
@@ -63,7 +64,6 @@ export function renderBattlefield(playerData, opponentData) {
 
 
 // Actualiza visualmente el tamaño (ancho %) y texto de la barra de vida
-
 export function updateHealthBar(playerType, currentHP, maxHP) {
     // Convertimos la vida en porcentaje
     const percentage = (currentHP / maxHP) * 100; 
@@ -88,6 +88,18 @@ export function animateHit(playerType) {
     }, 300);
 }
 
+export function animateAttack(playerType) {
+    const sprite = document.getElementById(`${playerType}-sprite`);
+    if (!sprite) return;
+
+    sprite.classList.add('attack-anim')
+
+    setTimeout(() => {
+        sprite.classList.remove('attack-anim')
+    }, 300);
+}
+    
+
 // Escribe un mensaje en el log de batalla y hace scroll hacia abajo
 export function renderLog(message, pokemonName, type = 'system') {
     const logContent = document.getElementById('log-content');
@@ -99,19 +111,47 @@ export function renderLog(message, pokemonName, type = 'system') {
 
     if (type === 'player') {
         entry.style.color = TYPE_COLORS[GAME_STATE.player.stats.types[0]]
-    } else if (type === 'enemy') {
+    } else if (type === 'opponent') {
         entry.style.color = TYPE_COLORS[GAME_STATE.opponent.stats.types[0]]
+    } else {
+        entry.style.color = '#C026D3';
     }
 
-    entry.textContent = `> ${pokemonName}: ${message}`;
+    // se agrega como innerHTML en lugar de textContent para poder darle estilos a partes del mensaje
+    entry.innerHTML = `> ${pokemonName.toUpperCase()}: ${message}`;
     
-    logContent.appendChild(entry);
+    // prepend() inyecta los nuevos elementos AL PRINCIPIO del contenedor
+    // empujando los viejos hacia el fondo
+    logContent.prepend(entry);
+}
 
-    // Auto-scroll al final del panel
-    const logPanel = document.getElementById('battle-log');
-    if (logPanel) {
-        logPanel.scrollTop = logPanel.scrollHeight;
-    }
+/**
+ 
+// param es una manera de tipar un parametro. Es una etiqueta de control de calidad para indicar que tipo de dato va ahi
+@param {number} cellIndex - Índice de la celda 1, 2 o 3
+ */
+
+export function showWarning(cellIndex) {
+    // Buscamos la celda dentro de la fila del jugador (player-row)
+    const platform = document.querySelector(`.player-row .cell:nth-child(${cellIndex})`);
+    if (platform) platform.classList.add('warning');
+}
+
+
+//  Quita la alerta roja una vez que el ataque ha pasado
+
+export function hideWarning(cellIndex) {
+    const platform = document.querySelector(`.player-row .cell:nth-child(${cellIndex})`);
+    if (platform) platform.classList.remove('warning');
+}
+
+/**
+ * Actualiza visualmente el cooldown 
+ * @param {number} percentage - Valor del 0 al 100
+ */
+export function updateCooldownUI(percentage) {
+    const bar = document.querySelector('.cooldown-fill-inner');
+    if (bar) bar.style.width = `${percentage}%`;
 }
 
 
@@ -142,6 +182,42 @@ export function updatePlayerPosition(newPosition, type) {
         newCell.style.borderBottomColor = TYPE_COLORS[type];
         newCell.style.background = `radial-gradient(ellipse at bottom, ${TYPE_COLORS[type]}33, transparent 70%)`;
     }
+}
+
+/**
+ * Fase 5: Muestra la pantalla de fin de juego y asigna los textos
+ */
+export function showEndScreen(isWin) {
+    const endScreen = document.getElementById('end-screen');
+    const endTitle = document.getElementById('end-title');
+    const endMessage = document.getElementById('end-message');
+    
+    endScreen.classList.remove('hidden');
+    
+    if (isWin) {
+        addLog(TRAINER_CONFIG.winMessage, GAME_STATE.player.stats.name, 'player');
+        endTitle.textContent = "¡HAS GANADO!";
+        
+        // Renderizamos en pantalla grande los mensajes traídos de tu configuración
+        endMessage.textContent = `${TRAINER_CONFIG.winMessage}`;
+        endMessage.style.color = '#A855F7';
+        endTitle.style.color = TYPE_COLORS[GAME_STATE.player.stats.types[0]];
+        
+    } else {
+        addLog(TRAINER_CONFIG.loseMessage, GAME_STATE.player.stats.name, 'player');
+        endTitle.textContent = "¡HAS PERDIDO!";
+        
+        // Renderizamos en pantalla grande los mensajes de derrota
+        endMessage.textContent = `${TRAINER_CONFIG.loseMessage}`;
+        endMessage.style.color = '#C026D3';
+        endTitle.style.color = TYPE_COLORS[GAME_STATE.opponent.stats.types[0]];
+    }
+}
+
+// Oculta la pantalla para permitir reiniciar el juego
+
+export function hideEndScreen() {
+    document.getElementById('end-screen').classList.add('hidden');
 }
 
 

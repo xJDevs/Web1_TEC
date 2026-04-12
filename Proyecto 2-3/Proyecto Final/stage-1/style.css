@@ -41,6 +41,28 @@ body {
   color: var(--text);
 }
 
+.trainer-header-card {
+  margin: 1.5rem auto 0 auto;
+  padding: 1rem;
+  border: 1px dashed var(--accent);
+  border-radius: 8px;
+  background: rgba(168, 85, 247, 0.05); /* fondo sutil morado oscuro */
+  display: inline-block;
+  min-width: 300px;
+}
+.trainer-header-card h3 {
+  color: var(--accent);
+  margin: 0 0 0.5rem 0;
+  font-family: var(--pixel);
+  font-size: 0.8rem;
+  letter-spacing: 1px;
+}
+.trainer-header-card p {
+  margin: 0.2rem 0;
+  font-size: 0.9rem;
+  color: var(--text);
+}
+
 /* 
   Flexbox Layout: Crear un contenedor (caja display) para poner las 
   tres secciones (jugador, buscador, oponente) exactamente alineadas
@@ -228,8 +250,8 @@ body {
   font-weight: bold;
 }
 
-/* Especialización de color para el botón de ir al round 2 */
-#start-battle-btn {
+/* Especialización para los botones de ir al round 2 de ambos bandos */
+#start-battle-btn, #player-start-battle-btn {
   margin-top: 2rem;
   background: #3CE858;      
   box-shadow: 0 4px 0 #28A745;

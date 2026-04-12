@@ -20,8 +20,14 @@
 <body>
   <main class="battle-container">
     <header class="stage-header">
-      <h1>STAGE 2: LA ARENA</h1>
+      <div style="display: flex; justify-content: center; align-items: center; gap: 1rem;">
+        <h1>STAGE 2: LA ARENA</h1>
+        <button id="btn-music" style="background: transparent; border: none; font-size: 1.8rem; cursor: pointer; transition: transform 0.2s;" onmouseover="this.style.transform='scale(1.2)'" onmouseout="this.style.transform='scale(1)'" title="Play/Pause OST">🔈</button>
+      </div>
       <p class="subtitle">¡A luchar!</p>
+
+      <!-- Reproductor Multimedia Nativo (Oculto en UI) -->
+      <audio id="battle-bgm" loop src="../resources/battle-theme.mp3"></audio>
     </header>
 
     <div class="pokemon-arena">

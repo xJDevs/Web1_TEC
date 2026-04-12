@@ -16,7 +16,7 @@ import TRAINER_CONFIG from '../trainer.config.js';
 // Es necesario escribir sus nombres exactos
 
 import { fetchPokemonData } from './api.js';
-import { drawPlayerCard, drawOpponentCard, clearOpponentStyles } from './render.js';
+import { drawPlayerCard, drawOpponentCard, clearOpponentStyles, renderTrainerCard } from './render.js';
 
 
 // Este bloque opera como una medida de seguridad vital en JavaScript Vanilla.
@@ -26,6 +26,10 @@ document.addEventListener('DOMContentLoaded', async () => {
     
     // Inicialización del controlador de lógica (Fase 1).
     console.log("Archivos de Stage 1 renderizados. Identidad precargada:", TRAINER_CONFIG.name);
+
+
+    // se renderiza el trainer card 
+    renderTrainerCard(TRAINER_CONFIG);
 
     // ==========================================
     //           GESTIÓN DE ESTADO GLOBAL
@@ -93,17 +97,20 @@ document.addEventListener('DOMContentLoaded', async () => {
         debounceTimer = setTimeout(async () => {
 
             // ---- CAPA 2: ABORTCONTROLLER ----
-            // Si hay un fetch anterior todavía en vuelo, lo destruye antes de lanzar uno nuevo.
             if (activeController) activeController.abort();
-            activeController = new AbortController();
+            
+            // Aislar el controlador para esta ejecución específica
+            const myController = new AbortController();
+            activeController = myController;
 
-            // Encendemos el esqueleto del rival antes de conectarnos a internet y apagamos la basura anterior
             document.getElementById('opponent-content').classList.add('hidden');
             document.getElementById('opponent-skeleton').classList.remove('hidden');
 
             // ---- CAPA 3: FETCH PROTEGIDO ----
-            // Le pasamos el signal como segundo argumento para que api.js pueda conectar el kill switch
-            const opponentData = await fetchPokemonData(query, activeController.signal);
+            const opponentData = await fetchPokemonData(query, myController.signal);
+
+            // Validar usando nuestro propio controlador local aislado, no el global que cambia
+            if (myController.signal.aborted) return;
 
             if (opponentData === null) {
 

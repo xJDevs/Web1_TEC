@@ -4,19 +4,20 @@
 
 const TRAINER_CONFIG = {
   name: "Joe",
-  hometown: "Desampa",
-  catchphrase: "Mas vivos que nunca!",
+  hometown: "Desampa Town",
+  catchphrase: "Darker than ever!",
+  battleCry: 'STOPPPP!',
 
   favoritePokemon: "darkrai",
   nickname: "Darks",
   
   // Customizacion de la ultimate/movimiento especial
   definitiveMoveName: "Dark Void",
-  definitiveMoveFlavor: "Used to lull opponents into a deep, nightmarish sleep, effectively incapacitating them.",
+  definitiveMoveFlavor: "READY FOR A NIGHTMARISH SLEEP!?",
   
   // Mensajes de victoria o derrota que saldrán en pantalla grande al finalizar el Stage 2
-  winMessage: "I WINNNN!",
-  loseMessage: "I'll be your nightmare!"
+  winMessage: "DARKNESS WILL ALWAYS BE AROUND US",
+  loseMessage: "I'LL BE YOUR NIGHTMARE!"
 };
 
 // Exportar el objeto. 

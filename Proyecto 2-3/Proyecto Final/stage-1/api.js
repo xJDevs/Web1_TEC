@@ -63,15 +63,20 @@ export async function fetchPokemonData(pokemonName, signal = null) {
             power: result.value.power || 10 // Si no tiene poder, le ponemos 10
         }))
        
-
+ 
         
         // Optimizamos memoria: filtramos el objeto gigante de la API y extraemos lo útil
         const filteredData = {
             name: data.name,
-            imgUrl: data.sprites.front_default, // Sprite pixel-art clásico (Opción A)
+            imgUrl: data.sprites.front_default, // Sprite pixel-art clásico
             hp: data.stats.find(stat => stat.stat.name === 'hp').base_stat,
+            // Oiga JS: vaya a data, use stat para referenciar el elemento actual, abra la caja de "stat",
+            // ubique name, si es igual a "attack", entonces tome el valor de base_stat
+            attack: data.stats.find(stat => stat.stat.name === 'attack').base_stat,
+            defense: data.stats.find(stat => stat.stat.name === 'defense').base_stat,
+            speed: data.stats.find(stat => stat.stat.name === 'speed').base_stat,
 
-            // '.map()' itera la lista sucia. Se usa una "Arrow Function" (Lambda) anónima: '(item => item.type.name)'.
+            // '.map()' itera la lista sucia. Se usa una "Arrow Function" (Lambda) anónima: '(item => item.type.name)'
             // La variable 'item' la creo yo y la funcion se encarga de recorrer la lista de tipos y extraer el nombre
             types: data.types.map(item => item.type.name),
 
@@ -85,9 +90,9 @@ export async function fetchPokemonData(pokemonName, signal = null) {
         return filteredData;
 
     } catch (error) {
-        // Si el fetch fue cancelado intencionalmente por el AbortController, lo ignoramos en silencio
+        // En caso de cancelación por AbortController, regresamos null tal cual manda el estándar
         if (error.name === 'AbortError') return null;
-        // Atrapamos el error silenciosamente en la consola por si buscaron algo inexistente (ej. Pikachu3)
+        
         console.error("Fallo local en api.js:", error.message);
         return null;
     }
